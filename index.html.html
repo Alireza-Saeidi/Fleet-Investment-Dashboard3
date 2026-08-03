@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>داشبورد تصمیم‌گیری سرمایه‌گذاری | شرکت تابعه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b2545; --navy-2:#123b6b; --navy-soft:#eef2f8;
+    --white:#ffffff; --gray-bg:#f3f5f8; --gray-line:#e2e7ee;
+    --text:#1c2733; --muted:#647184;
+    --green:#1f9d55; --green-bg:#e7f7ee;
+    --orange:#e2932a; --orange-bg:#fdf3e3;
+    --red:#c8372f; --red-bg:#fbeae9;
+    --purple:#6d4fd6; --purple-bg:#f1ecfd;
+    --shadow:0 1px 2px rgba(11,37,69,.06), 0 6px 20px rgba(11,37,69,.06);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ font-family:'Vazirmatn','IRANSans',Tahoma,sans-serif; background:var(--gray-bg); color:var(--text); -webkit-font-smoothing:antialiased; }
+  .num{ direction:ltr; unicode-bidi:isolate; display:inline-block; font-variant-numeric:tabular-nums; }
+  ::-webkit-scrollbar{height:8px;width:8px;} ::-webkit-scrollbar-thumb{background:#c7d5ea;border-radius:8px;}
+
+  header.top{ background:linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%); color:#fff; position:sticky; top:0; z-index:50; box-shadow:0 4px 18px rgba(0,0,0,.18); }
+  .top-inner{ max-width:1220px; margin:0 auto; padding:16px 24px 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand .mark{ width:40px; height:40px; border-radius:10px; background:conic-gradient(from 210deg,#3ea6ff,#1f9d55 40%,#123b6b 75%); box-shadow:inset 0 0 0 2px rgba(255,255,255,.25); }
+  .brand .txt h1{ font-size:15.5px; margin:0; font-weight:800; }
+  .brand .txt span{ font-size:11px; color:#b9c8e0; }
+  .save-group{ display:flex; align-items:center; gap:10px; }
+  .save-btn{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#fff; font-family:inherit; font-size:12px; font-weight:700; padding:8px 14px; border-radius:9px; cursor:pointer; transition:.15s; }
+  .save-btn:hover{ background:rgba(255,255,255,.2); }
+  .save-btn.primary{ background:#1f9d55; border-color:#1f9d55; }
+  .save-btn.primary:hover{ background:#188245; }
+  .save-btn.export{ background:#e2932a; border-color:#e2932a; }
+  .save-btn.export:hover{ background:#c67d1f; }
+  .save-status{ font-size:11px; color:#8fe3ac; font-weight:700; min-width:90px; }
+  nav.tabs{ max-width:1220px; margin:14px auto 0; padding:0 24px 4px; display:flex; flex-wrap:nowrap; gap:3px; overflow-x:auto; scrollbar-width:none; }
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{ flex:1 1 0; min-width:0; background:rgba(255,255,255,.05); border:none; color:#c7d5ea; padding:9px 6px; font-family:inherit; font-size:10.5px; font-weight:600; cursor:pointer; border-radius:8px 8px 0 0; border-bottom:3px solid transparent; white-space:nowrap; transition:.15s; overflow:hidden; text-overflow:ellipsis; }
+  nav.tabs button .n{ display:inline-block; width:16px; height:16px; border-radius:50%; background:rgba(255,255,255,.12); font-size:9px; line-height:16px; text-align:center; margin-inline-start:4px; }
+  nav.tabs button:hover{ color:#fff; background:rgba(255,255,255,.1); }
+  nav.tabs button.active{ color:#fff; background:rgba(255,255,255,.14); border-bottom-color:#3ea6ff; }
+  nav.tabs button.active .n{ background:#3ea6ff; color:#06263f; }
+
+  main{ max-width:1220px; margin:0 auto; padding:28px 24px 70px; }
+  .page{ display:none; animation:fade .35s ease; }
+  .page.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .page-head{ margin-bottom:22px; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:6px; font-size:22px; font-weight:800; color:var(--navy); background:var(--navy-soft); padding:10px 20px; border-radius:14px; margin-bottom:10px; }
+  .page-head p{ margin:10px 0 0; color:var(--muted); font-size:13.5px; max-width:820px; }
+
+  .grid{ display:grid; gap:18px; }
+  .g-4{ grid-template-columns:repeat(4,1fr); } .g-3{ grid-template-columns:repeat(3,1fr); } .g-2{ grid-template-columns:repeat(2,1fr); } .g-5{ grid-template-columns:repeat(5,1fr); } .g-6{ grid-template-columns:repeat(6,1fr); }
+  @media (max-width:900px){ .g-4,.g-3,.g-2,.g-5,.g-6{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .g-4,.g-3,.g-2,.g-5,.g-6{ grid-template-columns:1fr; } }
+
+  .card{ background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px 24px; border:1px solid rgba(11,37,69,.05); position:relative; overflow:visible; min-height:132px; }
+  .card:before{ content:""; position:absolute; top:0; right:0; width:5px; height:100%; background:var(--accent, var(--navy-2)); border-radius:0 var(--radius) var(--radius) 0; }
+  .kpi-label{ font-size:12.5px; color:var(--muted); font-weight:600; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+  .kpi-value{ font-size:25px; font-weight:800; color:var(--navy); line-height:1.25; }
+  .kpi-sub{ margin-top:9px; font-size:12px; color:var(--muted); line-height:1.65; }
+  .pos{ color:var(--green); } .neg{ color:var(--red); }
+  .card.total-card{ background:linear-gradient(150deg,var(--navy) 0%, var(--navy-2) 100%); text-align:center; }
+  .card.total-card .kpi-label{ justify-content:center; }
+  .card.total-card:before{ display:none; }
+  .card.total-card .kpi-label{ color:#b9c8e0; }
+  .card.total-card .kpi-value{ color:#fff; }
+  .card.total-card .kpi-sub{ color:#9db3d1; }
+
+  .step-title{ display:inline-flex; align-items:center; gap:10px; margin:30px 0 14px; }
+  .step-title:first-child{ margin-top:0; }
+  .step-num{ width:26px; height:26px; border-radius:50%; background:var(--accent,var(--navy-2)); color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .step-title .step-text{ font-size:15.5px; font-weight:800; color:var(--navy); }
+
+  .section-title{ font-size:15.5px; font-weight:800; color:var(--navy); margin:30px 0 14px; display:flex; align-items:center; gap:8px; }
+  .section-title:first-child{ margin-top:0; }
+  .section-title .dot{ width:8px; height:8px; border-radius:50%; background:var(--accent,var(--navy-2)); }
+  .section-desc{ font-size:13px; color:var(--muted); margin:-8px 0 16px; }
+
+  /* Hover-reveal: whole card triggers a SEPARATE popover box with a connecting arrow */
+  @keyframes stripBlink{ 0%,100%{ opacity:1; width:5px; } 50%{ opacity:.35; width:8px; } }
+  .card.hoverable{ cursor:pointer; min-height:150px; }
+  .card.hoverable:before{ animation:stripBlink 1.5s ease-in-out infinite; }
+  .card.hoverable:hover:before{ animation:none; opacity:1; width:5px; }
+  .card.hoverable .popover{
+    position:absolute; top:calc(100% + 16px); right:0; left:0; z-index:30; min-width:260px;
+    background:linear-gradient(150deg,#7a3b12 0%, #4a220a 100%); color:#fff; border-radius:12px;
+    padding:20px 22px; box-shadow:0 14px 34px rgba(45,31,77,.45);
+    opacity:0; visibility:hidden; transform:translateY(-10px); transition:.22s ease; pointer-events:none;
+  }
+  .card.hoverable .popover:before{ content:""; position:absolute; bottom:100%; right:28px; border:10px solid transparent; border-bottom-color:#7a3b12; }
+  .card.hoverable:hover .popover{ opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto; }
+  .popover .dt-title{ font-size:12.5px; color:#f0c9a8; margin-bottom:12px; font-weight:700; display:flex; align-items:center; gap:6px; }
+  .popover .dt-row{ display:flex; justify-content:space-between; gap:12px; font-size:14px; padding:7px 0; border-bottom:1px solid rgba(255,255,255,.14); }
+  .popover .dt-row:last-child{ border-bottom:none; }
+  .popover .dt-row.dt-total{ margin-top:6px; padding-top:11px; font-weight:800; font-size:14.5px; border-top:1px solid rgba(255,255,255,.32); }
+  .hover-hint{ display:inline-block; margin-top:10px; font-size:12px; color:var(--navy-2); font-weight:700; }
+
+  /* CSS-Grid tables */
+  .gtable{ display:grid; direction:rtl; background:var(--white); border-radius:var(--radius); overflow:visible; box-shadow:var(--shadow); }
+  .gtable .gc{ padding:11px 8px; font-size:12px; text-align:center; border-bottom:1px solid var(--gray-line); border-inline-start:1px solid var(--gray-line); display:flex; align-items:center; justify-content:center; min-width:0; }
+  .gtable .gc:first-child{ border-inline-start:none; }
+  .gtable .gh{ background:var(--navy); color:#fff; font-weight:700; font-size:11.5px; }
+  .gtable .glabel{ justify-content:flex-start; text-align:right; font-size:12px; }
+  .gtable .galt{ background:#FBFCFE; }
+  .gtable .gtotal{ color:var(--green); font-weight:800; }
+  .gtable .ghighlight{ background:var(--green-bg); color:var(--green); font-weight:800; }
+  .page-footer-note{ text-align:left; font-size:10.5px; color:var(--muted); margin-top:36px; padding-top:14px; border-top:1px dashed var(--gray-line); }
+  .gtable .row-end .gc{ border-bottom:none; }
+  .gtable .gmargin{ background:var(--purple-bg); font-weight:700; color:var(--purple); }
+  .gtable .neg{ color:var(--red) !important; }
+  @keyframes cellPulse{ 0%,100%{ filter:brightness(1); } 50%{ filter:brightness(0.9); } }
+  .gtable .gc.cell-hover{ cursor:pointer; position:relative; background:#EEF1F5 !important; animation:cellPulse 1.5s ease-in-out infinite; }
+  .gtable .gc.cell-hover:hover{ animation:none; }
+  .cell-pop{ position:absolute; top:calc(100% + 10px); left:50%; transform:translate(-50%,-8px); width:210px; background:linear-gradient(150deg,var(--navy) 0%, var(--navy-2) 100%); color:#fff; border-radius:10px; padding:14px 16px; box-shadow:0 14px 30px rgba(11,37,69,.4); opacity:0; visibility:hidden; transition:.2s ease; z-index:25; text-align:right; }
+  .cell-pop:before{ content:""; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:8px solid transparent; border-bottom-color:var(--navy); }
+  .gc.cell-hover:hover .cell-pop{ opacity:1; visibility:visible; transform:translate(-50%,0); }
+  .cell-pop .cp-row{ display:flex; justify-content:space-between; gap:8px; font-size:11.5px; padding:4px 0; border-bottom:1px solid rgba(255,255,255,.14); }
+  .cell-pop .cp-row:last-child{ border-bottom:none; margin-top:5px; padding-top:8px; font-weight:800; border-top:1px solid rgba(255,255,255,.32); }
+  .gtable .gc.hoverlabel{ cursor:help; position:relative; }
+  .gtable .gc.hoverlabel .tip{ visibility:hidden; opacity:0; position:absolute; bottom:105%; right:0; background:var(--navy); color:#fff; padding:10px 12px; border-radius:8px; font-size:11px; white-space:normal; width:220px; box-shadow:var(--shadow); transition:.15s; z-index:20; text-align:right; line-height:1.85; }
+  .gtable .gc.hoverlabel:hover .tip{ visibility:visible; opacity:1; }
+  .tip-row{ display:flex; justify-content:space-between; gap:8px; padding:2px 0; }
+
+  .foot-note{ font-size:11.5px; color:var(--muted); margin-top:22px; border-top:1px dashed var(--gray-line); padding-top:14px; }
+
+  /* Intro option cards */
+  .intro-box{ background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px 26px; margin-bottom:26px; }
+  .flowchart{ display:flex; flex-direction:column; align-items:center; padding:28px 10px 10px; }
+  .fc-node{ max-width:520px; text-align:center; background:var(--white); border:2px solid var(--navy); border-radius:14px; padding:14px 20px; font-size:13.5px; font-weight:700; color:var(--navy); box-shadow:var(--shadow); line-height:1.9; }
+  .fc-node.fc-root{ background:var(--navy); color:#fff; border-color:var(--navy); font-size:14.5px; }
+  .fc-node.fc-a{ border-color:var(--orange); color:#8a4a0a; }
+  .fc-node.fc-b{ border-color:var(--red); color:#8a2a2a; }
+  .fc-node.fc-s1{ border-color:var(--green); color:#1f7d45; }
+  .fc-node.fc-s2{ border-color:var(--purple); color:#5b3a8a; }
+  .fc-vline{ width:2px; height:26px; background:var(--gray-line); }
+  .fc-branch-2{ display:flex; align-items:flex-start; justify-content:center; gap:36px; width:100%; position:relative; }
+  .fc-branch-2:before{ content:""; position:absolute; top:0; right:calc(25% + 18px); left:calc(25% + 18px); height:2px; background:var(--gray-line); }
+  .fc-branch-col{ display:flex; flex-direction:column; align-items:center; flex:1 1 0; min-width:0; }
+  .fc-tag{ display:inline-block; font-size:10.5px; font-weight:800; padding:3px 10px; border-radius:10px; margin-bottom:6px; }
+  .fc-tag.a{ background:#fdecd8; color:#8a4a0a; }
+  .fc-tag.b{ background:#fbe1e1; color:#8a2a2a; }
+  .fc-tag.s1{ background:var(--green-bg); color:#1f7d45; }
+  .fc-tag.s2{ background:var(--purple-bg); color:#5b3a8a; }
+  .opt-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px; }
+  @media (max-width:760px){ .opt-row{ grid-template-columns:1fr; } }
+  .opt-card{ border-radius:12px; padding:16px 18px; }
+  .opt-card.A{ background:#FBF3EA; border:1px solid #EAD3B5; }
+  .opt-card.B{ background:var(--navy-soft); border:1px solid #D7E0EE; }
+  .opt-tag{ display:inline-block; font-size:11px; font-weight:800; padding:3px 10px; border-radius:100px; margin-bottom:10px; }
+  .opt-tag.A{ background:#B5651D; color:#fff; }
+  .opt-tag.B{ background:var(--navy-2); color:#fff; }
+  .opt-card p{ font-size:13px; color:var(--text); margin:0; line-height:1.85; }
+
+  /* Assumption flow */
+  .flow-row{ display:flex; align-items:stretch; gap:0; }
+  @media (max-width:980px){ .flow-row{ flex-direction:column; gap:14px; } .flow-arrow{ display:none; } }
+  .flow-row .card{ flex:1; }
+  .flow-arrow{ flex:0 0 40px; display:flex; align-items:center; justify-content:center; }
+  .flow-arrow .badge{ width:30px; height:30px; border-radius:50%; background:var(--navy-2); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; box-shadow:0 2px 7px rgba(11,37,69,.35); }
+
+  /* VS comparison */
+  .vs-wrap{ display:grid; grid-template-columns:1fr auto 1fr; background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+  @media (max-width:760px){ .vs-wrap{ grid-template-columns:1fr; } .vs-mid{ display:none; } }
+  .vs-col{ padding:20px 22px; }
+  .vs-col.optA{ background:linear-gradient(180deg, #FBF3EA 0%, #fff 60%); }
+  .vs-col.optB{ background:linear-gradient(180deg, var(--navy-soft) 0%, #fff 60%); }
+  .vs-head{ font-size:14px; font-weight:800; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid; }
+  .vs-head.optA{ color:#B5651D; border-color:#B5651D; }
+  .vs-head.optB{ color:var(--navy-2); border-color:var(--navy-2); }
+  .vs-mid{ width:1px; background:var(--gray-line); position:relative; }
+  .vs-mid .vs-badge{ position:absolute; top:50%; right:50%; transform:translate(50%,-50%); background:var(--navy); color:#fff; font-size:11px; font-weight:800; padding:6px 10px; border-radius:100px; white-space:nowrap; }
+  .vs-row{ display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px dashed var(--gray-line); font-size:13px; }
+  .vs-row:last-child{ border-bottom:none; }
+  .vs-row .vs-k{ color:var(--muted); font-size:12px; }
+  .vs-row .vs-v{ font-weight:800; font-size:14.5px; color:var(--navy); }
+  .vs-row.win .vs-v{ color:var(--green); }
+  .vs-row.win .vs-v::after{ content:" ✓"; }
+
+  .verdict{ background:linear-gradient(135deg,var(--navy) 0%, var(--navy-2) 100%); color:#fff; border-radius:var(--radius); padding:22px 24px; box-shadow:var(--shadow); margin-top:22px; }
+  .verdict h3{ margin:0 0 8px; font-size:14.5px; color:#fff; }
+  .verdict p{ margin:0; font-size:13px; line-height:2; color:#dbe6f5; }
+
+  /* Qualitative factors: hover-focus pattern */
+  .qual-flow{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media (max-width:760px){ .qual-flow{ grid-template-columns:1fr; } }
+  .qual-card{ background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px 30px; transition:opacity .28s ease, transform .28s ease, box-shadow .28s ease; }
+  .qual-flow:hover .qual-card{ opacity:.4; }
+  .qual-card:hover{ opacity:1 !important; transform:scale(1.035); position:relative; z-index:2; box-shadow:0 18px 38px -10px rgba(11,37,69,.32); }
+  @keyframes titleBlink{ 0%,100%{ opacity:1; } 50%{ opacity:.45; } }
+  .qual-title{ font-size:18px; font-weight:800; margin:0 0 18px; animation:titleBlink 1.5s ease-in-out infinite; }
+  .qual-title.good{ color:var(--green); }
+  .qual-title.bad{ color:var(--red); }
+  .qual-card ul{ margin:0; padding-inline-start:20px; font-size:13.5px; line-height:2.2; color:var(--text); }
+  .expl-list{ list-style:disc; margin:0 0 26px; padding-inline-start:20px; font-size:13.5px; line-height:2.1; color:var(--text); background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 22px 18px 42px; }
+  .savings-calc-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 14px; background:#F5F9FF; border-radius:10px; }
+  .savings-calc-row .scr-label{ font-size:12.5px; font-weight:600; color:var(--navy); }
+  .savings-calc-row .scr-val{ font-weight:800; color:var(--navy); font-size:14px; white-space:nowrap; }
+  .savings-calc-op{ text-align:center; font-size:16px; font-weight:800; color:var(--navy-2); padding:2px 0; }
+  .savings-calc-total{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:6px; padding:12px 14px; background:var(--navy); border-radius:10px; }
+  .savings-calc-total .scr-label{ font-size:13px; font-weight:800; color:#fff; }
+  .savings-calc-total .scr-val{ font-weight:800; color:#fff; font-size:15px; white-space:nowrap; }
+  .expl-list li{ padding:4px 0; }
+  .qual-card:hover li{ font-weight:600; }
+  /* Live/editable model styling */
+  .live-badge{ display:inline-flex; align-items:center; gap:6px; background:var(--green-bg); color:var(--green); font-size:11px; font-weight:800; padding:5px 12px; border-radius:20px; margin-inline-start:10px; }
+  .scenario-picker{ display:inline-flex; align-items:center; gap:8px; margin-inline-start:14px; background:var(--white); border-radius:20px; padding:5px 14px; box-shadow:var(--shadow); }
+  .scenario-picker .lbl{ font-size:11px; font-weight:700; color:var(--muted); }
+  .scenario-picker select{ border:1.5px solid #cfe0fd; border-radius:14px; background:#F5F9FF; color:var(--navy); font-family:inherit; font-weight:700; font-size:11.5px; padding:4px 10px; }
+  .excel-btn{ display:inline-flex; align-items:center; gap:6px; margin-inline-start:14px; background:#1f9d55; color:#fff; border:none; border-radius:20px; padding:7px 16px; font-family:inherit; font-weight:700; font-size:11.5px; cursor:pointer; }
+  .excel-btn:hover{ background:#188245; }
+  input.editnum{
+    width:100%; border:1.5px solid #cfe0fd; background:#F5F9FF; color:var(--navy);
+    font-family:inherit; font-weight:800; font-size:18px; text-align:center; border-radius:10px;
+    padding:6px 4px; direction:ltr;
+  }
+  .inp-wrap{ display:flex; align-items:center; gap:8px; }
+  .inp-wrap input.editnum{ min-width:0; flex:1 1 auto; }
+  .cur-pre{ font-weight:800; color:var(--navy); font-size:16px; flex:0 0 auto; }
+  .locked-out{ flex:1 1 auto; min-width:0; border:1.5px dashed #cfe0fd; background:#eef3fb; color:var(--navy); font-weight:800; font-size:16px; text-align:center; border-radius:10px; padding:6px 4px; direction:ltr; }
+  .kpi-title-main{ font-size:13px; font-weight:800; color:var(--navy); margin-bottom:8px; }
+  .dual-label-row{ display:flex; gap:8px; margin-bottom:4px; }
+  .dual-label-row span{ flex:1 1 auto; text-align:center; font-size:10.5px; font-weight:700; color:var(--muted); }
+  .inline-detail{ margin-top:12px; padding-top:10px; border-top:1px dashed var(--gray-line); display:flex; flex-direction:column; gap:6px; }
+  .inline-detail .detail-row{ display:flex; align-items:center; justify-content:space-between; font-size:11.5px; }
+  .inline-detail .detail-row span:first-child{ color:var(--muted); font-weight:600; }
+  .inline-detail .detail-row span:last-child{ color:var(--navy); font-weight:800; direction:ltr; }
+  input.editnum:focus{ outline:none; border-color:#2563eb; background:#fff; box-shadow:0 0 0 3px rgba(37,99,235,.15); }
+  .card.editable{ border:1.5px dashed #b7c9f5; }
+  .card.editable .kpi-label{ display:flex; align-items:center; justify-content:space-between; }
+  .edit-tag{ font-size:9px; font-weight:800; color:#2563eb; background:#E7EEFE; padding:2px 7px; border-radius:8px; }
+  .out-value{ font-weight:800; }
+  .loan-box{ background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px; margin-top:10px; }
+  .loan-row{ display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--gray-line); flex-wrap:wrap; }
+  .loan-row:last-child{ border-bottom:none; }
+  .loan-row .lbl{ flex:1 1 260px; font-size:13px; font-weight:700; color:var(--navy); }
+  .switch{ position:relative; width:46px; height:26px; flex:0 0 auto; }
+  .switch input{ opacity:0; width:0; height:0; }
+  .switch .slider{ position:absolute; inset:0; background:#cbd5e1; border-radius:26px; cursor:pointer; transition:.2s; }
+  .switch .slider:before{ content:""; position:absolute; width:20px; height:20px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.2s; }
+  .switch input:checked + .slider{ background:var(--green); }
+  .switch input:checked + .slider:before{ transform:translateX(20px); }
+  [dir="rtl"] .switch input:checked + .slider:before{ transform:translateX(-20px); }
+  .radio-group{ display:flex; gap:16px; flex-wrap:wrap; }
+  .radio-group label{ display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--text); cursor:pointer; }
+  select.editnum{ width:auto; padding:6px 10px; }
+  .loan-result{ background:var(--navy-soft); border-radius:12px; padding:16px 18px; margin-top:8px; }
+  .loan-result .lr-val{ font-size:22px; font-weight:800; color:var(--navy); }
+  .loan-disabled{ opacity:.4; pointer-events:none; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="mark"></div>
+      <div class="txt">
+        <h1>سرمایه‌گذاری در ناوگان حمل و نقل</h1>
+        <span>داشبورد تصمیم‌گیری سرمایه‌گذاری در ناوگان حمل و نقل — مدیریت حسابرسی داخلی</span>
+      </div>
+    </div>
+    <div class="save-group">
+      <button id="btn_save" class="save-btn primary">💾 ذخیره تغییرات</button>
+      <button id="btn_reset" class="save-btn">بازنشانی به پیش‌فرض</button>
+      <span id="save_status" class="save-status"></span>
+    </div>
+  </div>
+  <nav class="tabs" id="tabsNav">
+    <button class="active" data-target="l1">معرفی پروژه<span class="n">۱</span></button>
+    <button data-target="lA">مفروضات پروژه<span class="n">۲</span></button>
+    <button data-target="lA2">شرح مفروضات<span class="n">۳</span></button>
+    <button data-target="l2">صورت‌های مالی تاریخی<span class="n">۴</span></button>
+    <button data-target="l5">نتیجه پروژه (۲ ساله)<span class="n">۵</span></button>
+    <button data-target="l6">نتیجه پروژه (۵ ساله)<span class="n">۶</span></button>
+    <button data-target="l9" id="nav_l9" style="display:none;">نتیجه ۵ ساله با بازپرداخت<span class="n">*</span></button>
+    <button data-target="l7">نتیجه‌گیری کلی<span class="n">۷</span></button>
+    <button data-target="l8">ارزیابی کیفی<span class="n">۸</span></button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ TAB 1 : INTRO ============ -->
+<section class="page active" id="l1">
+  <div class="page-head">
+    <span class="eyebrow">معرفی پروژه</span>
+  </div>
+
+  <div class="intro-box">
+    <p style="font-size:14px; margin:0; color:var(--text); line-height:2;">
+      شرکت تابعه در حال حاضر بخشی از نیاز حمل‌ونقل شرکت مادر در این کشور را از طریق اجاره تریلی تأمین می‌کند.
+    </p>
+    <p style="font-size:14px; margin:16px 0 0; color:var(--text); line-height:2;">
+      سهامدار شرکت تصمیم به سرمایه‌گذاری در ناوگان حمل‌ونقل با مبلغ <span id="intro_amount_1">۴.۴ میلیون دلار</span> در این کشور دارد؛ در همین راستا این پرسش مطرح می‌شود که: آیا سرمایه‌گذاری در خرید ناوگان تریلی انجام شود، یا وضعیت فعلی (اجاره) ادامه یابد؟
+    </p>
+
+    <div class="flowchart">
+      <div class="fc-node fc-root">سرمایه‌گذاری <span id="intro_amount_2">۴.۴ میلیون دلاری</span> در ناوگان حمل‌ونقل در این کشور</div>
+      <div class="fc-vline"></div>
+      <div class="fc-branch-2">
+        <div class="fc-branch-col">
+          <div class="fc-vline"></div>
+          <span class="fc-tag a">گزینه A</span>
+          <div class="fc-node fc-a">خرید و سرمایه‌گذاری — سرمایه‌گذاری <span id="intro_amount_3">۴.۴ میلیون دلاری</span> در خرید ناوگان تریلی، به‌جای ادامه اجاره.</div>
+          <div class="fc-vline"></div>
+          <div class="fc-branch-2">
+            <div class="fc-branch-col">
+              <div class="fc-vline"></div>
+              <span class="fc-tag s1">سناریو ۱</span>
+              <div class="fc-node fc-s1">ادغام در شرکت مادر — خرید تریلی توسط شرکت مادر انجام شود و عملیات شرکت تابعه در آن ادغام شود.</div>
+            </div>
+            <div class="fc-branch-col">
+              <div class="fc-vline"></div>
+              <span class="fc-tag s2">سناریو ۲</span>
+              <div class="fc-node fc-s2">عدم ادغام — شرکت تابعه مستقل باقی بماند و سرمایه‌گذاری در ناوگان حمل‌ونقل در همان شرکت انجام شود.</div>
+            </div>
+          </div>
+        </div>
+        <div class="fc-branch-col">
+          <div class="fc-vline"></div>
+          <span class="fc-tag b">گزینه B</span>
+          <div class="fc-node fc-b">اجاره و ادامه وضع موجود — ادامه تأمین ناوگان از طریق اجاره تریلی توسط شرکت تابعه، بدون سرمایه‌گذاری جدید.</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:13px; margin:24px 0 0; color:var(--text); line-height:1.9;">
+      فرض گردیده زمین (عرصه) موردنیاز برای پارکینگ این پروژه، از سوی شرکت مادر تأمین شود؛ همچنین هزینه ساخت ساختمان (اعیانی) تعمیرگاه در مبلغ سرمایه‌گذاری کل لحاظ شده است.
+    </p>
+    <p style="font-size:12px; margin:16px 0 0; color:var(--muted); line-height:1.9;">
+      محاسبات بر اساس اطلاعات تاریخی و صورت‌های مالی حسابرسی‌نشده، ارائه گردیده است. در صورت حسابرسی صورت‌های مالی شرکت فرعی، ممکن است مفروضات و نتایج ارائه‌شده تغییر کند.
+    </p>
+  </div>
+</section>
+
+<!-- ============ TAB 2 : MERGED ASSUMPTIONS PAGE ============ -->
+<section class="page" id="lA">
+  <div class="page-head">
+    <span class="eyebrow">مفروضات پروژه <span class="live-badge">⚡ تغییرات به صورت دینامیک اعمال می‌گردد</span></span>
+    <p>هر عدد آبی‌رنگ زیر قابل ویرایش است؛ با تغییر آن، صفحات نتایج به‌طور خودکار به‌روز می‌شوند.</p>
+  </div>
+
+  <!-- SECTION 1: EVALUATION ASSUMPTIONS -->
+  <div class="step-title" style="--accent:var(--navy-2);"><span class="step-num">۱</span><span class="step-text">مفروضات ارزیابی</span></div>
+  <div class="grid g-5">
+    <div class="card editable" style="--accent:var(--navy-2);">
+      <div class="kpi-label">نرخ تنزیل (%)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_wacc" type="number" value="12" min="0" step="0.5">
+      <div class="kpi-sub">مبنای محاسبه ارزش فعلی جریان نقدی</div>
+    </div>
+    <div class="card editable hoverable" style="--accent:var(--navy-2);">
+      <div class="kpi-label">نرخ مالیات بر درآمد (%)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_tax" type="number" value="15" min="0" step="1">
+      <div class="popover">
+        <div class="dt-title">توضیح معافیت</div>
+        <div class="dt-row" style="white-space:normal;"><span>شرکت مادر به‌دلیل داشتن مجوز سرمایه‌گذاری، از پرداخت مالیات معاف می‌باشد.</span></div>
+      </div>
+      <div class="hover-hint">برای جزئیات نگه دارید</div>
+    </div>
+    <div class="card editable" style="--accent:var(--navy-2);">
+      <div class="kpi-label">نرخ تورم مورد انتظار (%)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_inflation" type="number" value="3" min="0" step="0.5">
+      <div class="kpi-sub">رشد سالانه هزینه‌ها و درآمد</div>
+    </div>
+    <div class="card editable" style="--accent:var(--navy-2);">
+      <div class="kpi-label">نرخ تبدیل ارز<span class="edit-tag">ویرایش</span></div>
+      <div class="inp-wrap"><span style="font-weight:800; color:var(--navy); font-size:16px; direction:ltr; unicode-bidi:isolate;">$1 =</span><input class="editnum" id="inp_fx" type="text" inputmode="decimal" data-fmt="1" value="1550" min="0" step="10"></div>
+      <div class="kpi-sub">واحد پول محلی (LC)</div>
+    </div>
+    <div class="card" style="--accent:var(--navy);">
+      <div class="kpi-label">افق پیش‌بینی پروژه</div>
+      <div class="kpi-value">پنج سال</div>
+      <div class="kpi-sub">۲۰۲۷ تا ۲۰۳۱ — ثابت و غیرقابل‌اصلاح</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: VEHICLE PURCHASE ASSUMPTIONS -->
+  <div class="step-title" style="--accent:var(--purple);"><span class="step-num">۲</span><span class="step-text">مفروضات خرید وسایل نقلیه</span></div>
+  <div class="grid g-4">
+    <div class="card editable" style="--accent:var(--purple);">
+      <div class="kpi-label">تعداد تریلی<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_countNew" type="number" value="40" min="0" step="1">
+      <div class="kpi-sub">مبنای محاسبه سرمایه‌گذاری (CapEx)</div>
+    </div>
+    <div class="card editable" style="--accent:var(--purple);">
+      <div class="kpi-label">برند تریلی<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_brand" type="text" value="مرسدس بنز اکتروس" list="brandList">
+      <datalist id="brandList">
+        <option value="مرسدس بنز اکتروس">
+        <option value="اسکانیا">
+        <option value="ولوو">
+        <option value="MAN">
+        <option value="رنو">
+        <option value="ایویکو">
+      </datalist>
+      <div class="kpi-sub">قابل انتخاب یا نوشتن دستی</div>
+    </div>
+    <div class="card editable" style="--accent:var(--purple);">
+      <div class="kpi-label">مدل سال (کارکرده)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_modelYear" type="number" value="2018" min="1990" step="1">
+      <div class="kpi-sub">سال ساخت تریلی</div>
+    </div>
+    <div class="card editable" style="--accent:var(--purple);">
+      <div class="kpi-title-main">قیمت هر دستگاه</div>
+      <div class="kpi-sub" style="margin:-4px 0 8px;">متوسط قیمت تریلی کارکرده</div>
+      <div class="inp-wrap"><span class="cur-pre">$</span><input class="editnum" id="inp_price" type="text" inputmode="decimal" data-fmt="1" value="100000" min="0" step="1000"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>دلاری</span><span id="pop_price_usd">$95,000</span></div>
+        <div class="detail-row"><span>LCی</span><span id="pop_price_iqd">147,250,000</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--purple);">
+      <div class="kpi-title-main">تجهیزات جانبی</div>
+      <div class="kpi-sub" style="margin:-4px 0 8px;">شامل بست بار، یدک‌کش اضافی و موارد مشابه است</div>
+      <div class="inp-wrap"><span class="cur-pre">$</span><input class="editnum" id="inp_equipParts" type="text" inputmode="decimal" data-fmt="1" value="200000" min="0" step="1000"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>دلاری</span><span id="pop_equip_usd">$200,000</span></div>
+        <div class="detail-row"><span>LCی</span><span id="pop_equip_iqd">310,000,000</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--purple);">
+      <div class="kpi-title-main">ساختمان تعمیرگاه</div>
+      <div class="dual-label-row"><span>متراژ (m²)</span><span>قیمت هر متر (دلار)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_garageArea" type="number" value="500" min="0" step="10"><span class="cur-pre">$</span><input class="editnum" id="inp_garagePrice" type="text" inputmode="decimal" data-fmt="1" value="400" min="0" step="10"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>جمع دلاری</span><span id="pop_garage_usd">$200,000</span></div>
+        <div class="detail-row"><span>جمع LCی</span><span id="pop_garage_iqd">310,000,000</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--purple);">
+      <div class="kpi-label">نحوه لحاظ هزینه ساختمان تعمیرگاه<span class="edit-tag">ویرایش</span></div>
+      <select class="editnum" id="inp_garageMethod">
+        <option value="invest" selected>افزوده به سرمایه‌گذاری (سال صفر)</option>
+        <option value="expense">کسر یکجا از صرفه‌جویی سال اول (۲۰۲۷)</option>
+      </select>
+    </div>
+    <div class="card total-card">
+      <div class="kpi-label">مبلغ سرمایه‌گذاری</div>
+      <div class="kpi-value num out-value" id="out_totalInvest">$4,000,000</div>
+      <div class="kpi-sub" style="color:#9db3d1;">تریلی + تجهیزات (+ ساختمان، بسته به روش انتخابی)</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: FINANCING (BANK LOAN) -->
+  <div class="step-title" style="--accent:#2563eb;"><span class="step-num">۳</span><span class="step-text">تأمین مالی سرمایه‌گذاری</span></div>
+  <div class="loan-box">
+    <div class="loan-row">
+      <span class="lbl">تأمین مالی سرمایه‌گذاری</span>
+      <label class="switch"><input type="checkbox" id="inp_loanEnabled"><span class="slider"></span></label>
+      <span style="font-size:12px; color:var(--muted);" id="loan_status_txt">غیرفعال — سرمایه‌گذاری از محل منابع داخلی تأمین می‌شود</span>
+    </div>
+    <div id="loan_details" class="loan-disabled">
+      <div class="loan-row">
+        <span class="lbl">نرخ بهره وام (% سالانه)</span>
+        <input class="editnum" id="inp_loanRate" type="number" value="10" min="0" step="0.5" style="width:110px;">
+      </div>
+      <div class="kpi-sub" style="margin-top:10px;">بازپرداخت به‌صورت اقساط مساوی سالانه (اصل + بهره) از سال اول است. بهره سالانه، پیش از مالیات از سود کسر می‌شود؛ اصل وام پس از مالیات، مستقیماً از جریان نقدی کسر می‌شود.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: ROUTES & FREIGHT RATE -->
+  <div class="step-title" style="--accent:#2563eb;"><span class="step-num">۴</span><span class="step-text">تخصیص مسیرها و نرخ هزینه حمل بر هر کیلومتر</span></div>
+  <div class="grid g-3">
+    <div class="card editable" style="--accent:#2563eb;">
+      <div class="kpi-title-main">مرز ← کارخانه</div>
+      <div class="dual-label-row"><span>تعداد دستگاه</span><span>نرخ حمل (دلار/کیلومتر)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_countBF" type="number" value="10" min="0" step="1"><input class="editnum" id="inp_rateBF" type="number" value="1.78" min="0" step="0.01"></div>
+    </div>
+    <div class="card editable" style="--accent:#2563eb;">
+      <div class="kpi-title-main">مرز ← شعب</div>
+      <div class="dual-label-row"><span>تعداد دستگاه</span><span>نرخ حمل (دلار/کیلومتر)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_countBB" type="number" value="10" min="0" step="1"><input class="editnum" id="inp_rateBB" type="number" value="2.31" min="0" step="0.01"></div>
+    </div>
+    <div class="card editable" style="--accent:#2563eb;">
+      <div class="kpi-title-main">کارخانه ← شعب</div>
+      <div class="dual-label-row"><span>تعداد دستگاه</span><span>نرخ حمل (دلار/کیلومتر)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_countFB" type="number" value="22" min="0" step="1"><input class="editnum" id="inp_rateFB" type="number" value="1.33" min="0" step="0.01"></div>
+    </div>
+  </div>
+  <p id="route_coverage_note" style="font-size:12.5px; color:var(--muted); background:var(--white); border-radius:10px; box-shadow:var(--shadow); padding:12px 16px; margin:10px 0 0; line-height:1.9;">
+    تعداد ۴۰ تریلی خریداری‌شده، به‌صورت تقریبی ۱۰۰٪ از عملیات مسیرهای فوق را پوشش می‌دهد و ۰٪ ظرفیت باقی‌مانده هنوز به مسیر مشخصی تخصیص نیافته است.
+  </p>
+
+  <!-- SECTION 5: SAVINGS CALCULATION BASIS (static explanation) -->
+  <div class="step-title" style="--accent:var(--navy-2);"><span class="step-num">۵</span><span class="step-text">مبانی محاسبه صرفه‌جویی</span></div>
+  <div class="card" style="--accent:var(--navy-2);">
+    <p style="font-size:13px; font-weight:700; color:var(--navy); margin:0 0 14px;">مبانی محاسبات مربوط به صرفه‌جویی محاسبه‌شده در جداول نتیجه‌گیری، به شرح زیر می‌باشد:</p>
+    <div class="savings-calc-row">
+      <span class="scr-label">(تعداد دستگاه هر مسیر × نرخ حمل همان مسیر) — جمع سه مسیر</span>
+      <span class="scr-val num" id="calc_routeSum">70.16</span>
+    </div>
+    <div class="savings-calc-op">×</div>
+    <div class="savings-calc-row">
+      <span class="scr-label">میانگین مسافت ماهانه هر تریلی (کیلومتر)</span>
+      <span class="scr-val num" id="calc_avgDist">12,000</span>
+    </div>
+    <div class="savings-calc-op">×</div>
+    <div class="savings-calc-row">
+      <span class="scr-label">۶ (معادل‌سازی مسافت ماهانه به شش‌ماهه، مطابق مبنای صورت‌های مالی تاریخی)</span>
+      <span class="scr-val num">6</span>
+    </div>
+    <div class="savings-calc-op" id="calc_officeRentOp" style="display:none;">+</div>
+    <div class="savings-calc-row" id="calc_officeRentRow" style="display:none;">
+      <span class="scr-label">صرفه‌جویی اجاره دفتر (فقط سناریوی ادغام در شرکت مادر)</span>
+      <span class="scr-val num" id="calc_officeRentAdd">$51,613</span>
+    </div>
+    <div class="savings-calc-total">
+      <span class="scr-label">= صرفه‌جویی (درآمد) سالانه پایه</span>
+      <span class="scr-val num" id="calc_revenueY1">$5,051,520</span>
+    </div>
+    <p style="font-size:11.5px; color:var(--muted); margin:10px 0 0;">این رقم پایه سال اول (۲۰۲۷) است؛ در سال‌های بعد متناسب با نرخ تورم رشد می‌کند.</p>
+  </div>
+
+  <!-- SECTION 6: OPERATIONAL DAYS & FUEL -->
+  <div class="step-title" style="--accent:var(--orange);"><span class="step-num">۶</span><span class="step-text">روزهای عملیاتی و هزینه سوخت</span></div>
+  <div class="grid g-4">
+    <div class="card editable" style="--accent:var(--orange);">
+      <div class="kpi-label">روزهای کاری سالانه<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_workdays" type="number" value="291" min="0" step="1">
+      <div class="kpi-sub">طبق رویه فعلی شرکت فرعی</div>
+    </div>
+    <div class="card editable" style="--accent:var(--orange);">
+      <div class="kpi-label">مصرف سوخت (L/100km)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_fuelCons" type="number" value="40" min="0" step="1">
+      <div class="kpi-sub">مصرف هر تریلی</div>
+    </div>
+    <div class="card editable" style="--accent:var(--orange);">
+      <div class="kpi-label">قیمت پایه گازوئیل (LC/لیتر)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_fuelPrice" type="text" inputmode="decimal" data-fmt="1" value="500" min="0" step="10">
+      <div class="kpi-sub">سال پایه ۲۰۲۶</div>
+    </div>
+    <div class="card editable" style="--accent:var(--orange);">
+      <div class="kpi-label">رشد سالانه قیمت سوخت (%)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_fuelGrowth" type="number" value="1" min="0" step="0.1">
+    </div>
+    <div class="card editable hoverable" style="--accent:var(--orange);">
+      <div class="kpi-label">میانگین مسافت ماهانه (km)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_avgDist" type="number" value="12000" min="0" step="100">
+      <div class="kpi-sub">هر تریلی، در ماه</div>
+      <div class="popover">
+        <div class="dt-title">توضیح مسافت</div>
+        <div class="dt-row" style="white-space:normal;"><span>نیمی از این مسافت مربوط به برگشت خالی تریلی (بدون بار) است.</span></div>
+      </div>
+      <div class="hover-hint">برای جزئیات نگه دارید</div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: MONTHLY LABOR COST -->
+  <div class="step-title" style="--accent:var(--red);"><span class="step-num">۷</span><span class="step-text">هزینه نیروی انسانی (حقوق ماهانه به LC)</span></div>
+  <div class="grid g-5">
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">راننده تریلی</div>
+      <div class="dual-label-row"><span>تعداد</span><span>حقوق ماهانه (LC)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_driverN" type="number" value="47" min="0" step="1"><input class="editnum" id="inp_driverCostM_iqd" type="text" inputmode="decimal" data-fmt="1" value="2500150"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>حقوق سالانه (LC)</span><span id="det_driver_y_iqd">30,001,800</span></div>
+        <div class="detail-row"><span>حقوق ماهانه (دلار)</span><span id="det_driver_m_usd">$1,613</span></div>
+        <div class="detail-row"><span>حقوق سالانه (دلار)</span><span id="det_driver_y_usd">$19,356</span></div>
+        <div class="detail-row"><span>جمع کل نفرات، سالانه (دلار)</span><span id="det_driver_total">$909,732</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">سرپرست ناوگان</div>
+      <div class="dual-label-row"><span>تعداد</span><span>حقوق ماهانه (LC)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_supN" type="number" value="2" min="0" step="1"><input class="editnum" id="inp_supCostM_iqd" type="text" inputmode="decimal" data-fmt="1" value="3100000"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>حقوق سالانه (LC)</span><span id="det_sup_y_iqd">37,200,000</span></div>
+        <div class="detail-row"><span>حقوق ماهانه (دلار)</span><span id="det_sup_m_usd">$2,000</span></div>
+        <div class="detail-row"><span>حقوق سالانه (دلار)</span><span id="det_sup_y_usd">$24,000</span></div>
+        <div class="detail-row"><span>جمع کل نفرات، سالانه (دلار)</span><span id="det_sup_total">$48,000</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">تعمیرکار</div>
+      <div class="dual-label-row"><span>تعداد</span><span>حقوق ماهانه (LC)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_mechN" type="number" value="3" min="0" step="1"><input class="editnum" id="inp_mechCostM_iqd" type="text" inputmode="decimal" data-fmt="1" value="2500150"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>حقوق سالانه (LC)</span><span id="det_mech_y_iqd">30,001,800</span></div>
+        <div class="detail-row"><span>حقوق ماهانه (دلار)</span><span id="det_mech_m_usd">$1,613</span></div>
+        <div class="detail-row"><span>حقوق سالانه (دلار)</span><span id="det_mech_y_usd">$19,356</span></div>
+        <div class="detail-row"><span>جمع کل نفرات، سالانه (دلار)</span><span id="det_mech_total">$58,068</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">نیروی پشتیبانی</div>
+      <div class="dual-label-row"><span>تعداد</span><span>حقوق ماهانه (LC)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_supportN" type="number" value="5" min="0" step="1"><input class="editnum" id="inp_supportCostM_iqd" type="text" inputmode="decimal" data-fmt="1" value="4000008"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>حقوق سالانه (LC)</span><span id="det_support_y_iqd">48,000,096</span></div>
+        <div class="detail-row"><span>حقوق ماهانه (دلار)</span><span id="det_support_m_usd">$2,581</span></div>
+        <div class="detail-row"><span>حقوق سالانه (دلار)</span><span id="det_support_y_usd">$30,968</span></div>
+        <div class="detail-row"><span>جمع کل نفرات، سالانه (دلار)</span><span id="det_support_total">$154,839</span></div>
+      </div>
+    </div>
+    <div class="card total-card" style="text-align:right;">
+      <div class="kpi-label" style="justify-content:flex-start;">جمع هزینه نیروی انسانی (سالانه)</div>
+      <div class="inline-detail" style="border-top:1px solid rgba(255,255,255,.2); margin-top:6px;">
+        <div class="detail-row"><span style="color:#c9d7ef;">حقوق سالانه راننده تریلی (LC)</span><span style="color:#fff;" id="tot_driver_y_iqd">1,410,084,600</span></div>
+        <div class="detail-row"><span style="color:#c9d7ef;">حقوق سالانه تعمیرکار (LC)</span><span style="color:#fff;" id="tot_mech_y_iqd">90,005,400</span></div>
+        <div class="detail-row"><span style="color:#c9d7ef;">حقوق سالانه پشتیبانی (LC)</span><span style="color:#fff;" id="tot_support_y_iqd">240,000,480</span></div>
+        <div class="detail-row"><span style="color:#c9d7ef;">حقوق سالانه سرپرست ناوگان (LC)</span><span style="color:#fff;" id="tot_sup_y_iqd">74,400,000</span></div>
+        <div class="detail-row" style="border-top:1px dashed rgba(255,255,255,.3); padding-top:8px; margin-top:2px;"><span style="color:#8fe3ac; font-weight:800;">جمع کل سالانه (LC)</span><span style="color:#8fe3ac; font-weight:800;" id="out_laborTotal_iqd">1,814,490,480</span></div>
+        <div class="detail-row"><span style="color:#8fe3ac; font-weight:800;">جمع کل سالانه (دلار)</span><span style="color:#8fe3ac; font-weight:800;" id="out_laborTotal">$1,170,639</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title" style="margin-top:24px; --accent:var(--red);"><span class="dot"></span>تعمیرات و نگهداری (به‌ازای هر تریلی، سالانه — LC)</p>
+  <div class="grid g-4">
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">لاستیک</div>
+      <div class="dual-label-row"><span>تعداد لاستیک</span><span>قیمت هر حلقه (LC)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_tiresN" type="number" value="10" min="0" step="1"><input class="editnum" id="inp_tiresCost_iqd" type="text" inputmode="decimal" data-fmt="1" value="500030"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>سالانه (LC)</span><span id="det_tires_y_iqd">5,000,300</span></div>
+        <div class="detail-row"><span>ماهانه (LC)</span><span id="det_tires_m_iqd">416,692</span></div>
+        <div class="detail-row"><span>سالانه (دلار)</span><span id="det_tires_y_usd">$3,226</span></div>
+        <div class="detail-row"><span>ماهانه (دلار)</span><span id="det_tires_m_usd">$269</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">روغن</div>
+      <div class="dual-label-row"><span>فاصله تعویض (کیلومتر)</span><span>هزینه هر تعویض (LC)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_oilInterval" type="number" value="12000" min="1" step="500"><input class="editnum" id="inp_oilCostPerChange_iqd" type="text" inputmode="decimal" data-fmt="1" value="416950"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>تعداد تعویض در سال</span><span id="det_oil_times">12.0</span></div>
+        <div class="detail-row"><span>سالانه (LC)</span><span id="det_oil_y_iqd">5,003,400</span></div>
+        <div class="detail-row"><span>ماهانه (LC)</span><span id="det_oil_m_iqd">416,950</span></div>
+        <div class="detail-row"><span>سالانه (دلار)</span><span id="det_oil_y_usd">$3,228</span></div>
+        <div class="detail-row"><span>ماهانه (دلار)</span><span id="det_oil_m_usd">$269</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">بیمه، مجوز، GPS و نرم‌افزار</div>
+      <div class="dual-label-row"><span>مجموع سالانه (LC)</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_insGps_iqd" type="text" inputmode="decimal" data-fmt="1" value="3100000"></div>
+      <div class="inline-detail">
+        <div class="detail-row"><span>ماهانه (LC)</span><span id="det_insgps_m_iqd">258,333</span></div>
+        <div class="detail-row"><span>سالانه (دلار)</span><span id="det_insgps_y_usd">$2,000</span></div>
+        <div class="detail-row"><span>ماهانه (دلار)</span><span id="det_insgps_m_usd">$167</span></div>
+      </div>
+    </div>
+    <div class="card editable" style="--accent:var(--red);">
+      <div class="kpi-title-main">قطعات تعمیرات دوره‌ای سالانه</div>
+      <div class="kpi-sub" style="margin:0 0 6px;">قطعات گیربکس و سرویس‌های مورد نیاز — درصدی از قیمت تریلی</div>
+      <div class="dual-label-row"><span>درصد قیمت تریلی (%)</span></div>
+      <input class="editnum" id="inp_periodicPct" type="number" value="2.1" min="0" step="0.1">
+      <div class="inline-detail">
+        <div class="detail-row"><span>سالانه (LC)</span><span id="det_periodic_y_iqd">3,092,250</span></div>
+        <div class="detail-row"><span>ماهانه (LC)</span><span id="det_periodic_m_iqd">257,688</span></div>
+        <div class="detail-row"><span>سالانه (دلار)</span><span id="det_periodic_y_usd">$1,995</span></div>
+        <div class="detail-row"><span>ماهانه (دلار)</span><span id="det_periodic_m_usd">$166</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g-2" style="margin-top:16px;">
+    <div class="card total-card" style="text-align:right;">
+      <div class="kpi-label" style="justify-content:flex-start;">جمع تعمیرات و نگهداری کل ناوگان (سالانه)</div>
+      <div class="inline-detail" style="border-top:1px solid rgba(255,255,255,.2); margin-top:6px;">
+        <div class="detail-row"><span style="color:#c9d7ef;">لاستیک، کل ناوگان (LC)</span><span style="color:#fff;" id="tot_tires_iqd">210,012,600</span></div>
+        <div class="detail-row"><span style="color:#c9d7ef;">روغن، کل ناوگان (LC)</span><span style="color:#fff;" id="tot_oil_iqd">210,142,800</span></div>
+        <div class="detail-row"><span style="color:#c9d7ef;">بیمه/مجوز/GPS، کل ناوگان (LC)</span><span style="color:#fff;" id="tot_insgps_iqd">130,200,000</span></div>
+        <div class="detail-row"><span style="color:#c9d7ef;">قطعات دوره‌ای، کل ناوگان (LC)</span><span style="color:#fff;" id="tot_periodic_iqd">130,000,500</span></div>
+        <div class="detail-row" style="border-top:1px dashed rgba(255,255,255,.3); padding-top:8px; margin-top:2px;"><span style="color:#8fe3ac; font-weight:800;">جمع کل سالانه (LC)</span><span style="color:#8fe3ac; font-weight:800;" id="out_maintTotal_iqd">680,355,900</span></div>
+        <div class="detail-row"><span style="color:#8fe3ac; font-weight:800;">جمع کل سالانه (دلار)</span><span style="color:#8fe3ac; font-weight:800;" id="out_maintTotal">$438,984</span></div>
+      </div>
+    </div>
+    <div class="card total-card">
+      <div class="kpi-label">نسبت هزینه سالانه تعمیرات به هزینه خرید ناوگان</div>
+      <div class="kpi-value num out-value" id="out_maintPct">11.5%</div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: OTHER ASSUMPTIONS -->
+  <div class="step-title" style="--accent:var(--navy);"><span class="step-num">۸</span><span class="step-text">سایر مفروضات</span></div>
+  <div class="grid g-3">
+    <div class="card editable hoverable" style="--accent:var(--navy);">
+      <div class="kpi-label">تعدیل مالیاتی سال اول<span class="edit-tag">ویرایش</span></div>
+      <div class="inp-wrap"><span class="cur-pre">$</span><input class="editnum" id="inp_taxAdj" type="text" inputmode="decimal" data-fmt="1" value="60000" min="0" step="1000"></div>
+      <div class="kpi-sub">کسر از صرفه‌جویی ناخالص، سالانه با تورم رشد می‌کند</div>
+      <div class="popover">
+        <div class="dt-title">جزئیات به تفکیک ارز (سال اول)</div>
+        <div class="dt-row"><span>دلاری</span><span id="pop_taxadj_usd">$60,000</span></div>
+        <div class="dt-row"><span>LCی</span><span id="pop_taxadj_iqd">93,000,000</span></div>
+      </div>
+      <div class="hover-hint">برای جزئیات نگه دارید</div>
+    </div>
+    <div class="card editable" style="--accent:var(--navy);">
+      <div class="kpi-label">درصد ارزش اسقاط پایان سال پنجم (%)<span class="edit-tag">ویرایش</span></div>
+      <input class="editnum" id="inp_salvagePct" type="number" value="15" min="0" step="1">
+      <div class="kpi-sub">فقط از مبلغ خرید تریلی‌ها محاسبه می‌شود (نه تجهیزات و تعمیرگاه)؛ به‌صورت خودکار به‌عنوان درآمد در سال ۲۰۳۱ اضافه می‌شود</div>
+    </div>
+    <div class="card editable hoverable" style="--accent:var(--navy);">
+      <div class="kpi-label">هزینه اجاره دفتر شرکت تابعه<span class="edit-tag">ویرایش</span></div>
+      <div class="inp-wrap"><input class="editnum" id="inp_officeRent" type="text" inputmode="decimal" data-fmt="1" value="80000000"><span style="font-size:11px; color:var(--muted); flex:0 0 auto;">LC/سال</span></div>
+      <div class="kpi-sub">صرفه‌جویی حاصل در صورت ادغام شرکت تابعه در شرکت مادر؛ فقط در سناریوی ادغام به صرفه‌جویی اضافه می‌شود</div>
+      <div class="popover">
+        <div class="dt-title">جزئیات به تفکیک ارز</div>
+        <div class="dt-row"><span>LCی، سالانه</span><span id="pop_officeRent_iqd">80,000,000</span></div>
+        <div class="dt-row"><span>دلاری، سالانه</span><span id="pop_officeRent_usd">$51,613</span></div>
+      </div>
+      <div class="hover-hint">برای جزئیات نگه دارید</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 3 : ASSUMPTIONS EXPLANATION (interactive) ============ -->
+<section class="page" id="lA2">
+  <div class="page-head">
+    <span class="eyebrow">شرح مفروضات <span class="live-badge">⚡ تعاملی با صفحه مفروضات</span></span>
+  </div>
+
+  <p class="section-title" style="--accent:var(--navy-2);"><span class="dot"></span>۱) مفروضات ارزیابی</p>
+  <ul class="expl-list">
+    <li>نرخ تنزیل مبنای محاسبه ارزش فعلی جریان‌های نقدی، <span id="ex_wacc">۱۲ درصد</span> در نظر گرفته شده است.</li>
+    <li>نرخ مالیات بر درآمد <span id="ex_tax">۱۵ درصد</span> است (در گزینه A فعلاً اعمال نمی‌شود).</li>
+    <li>نرخ تورم مورد انتظار سالانه <span id="ex_inflation">۳ درصد</span> فرض شده و هزینه‌ها و درآمدها سالانه با همین نرخ رشد می‌کنند.</li>
+    <li><span id="ex_fx">هر یک دلار معادل ۱,۵۵۰ LC</span> در نظر گرفته شده است.</li>
+    <li>افق پیش‌بینی پروژه ۵ سال (۲۰۲۷ تا ۲۰۳۱) است.</li>
+  </ul>
+
+  <p class="section-title" style="--accent:var(--purple);"><span class="dot"></span>۲) مفروضات خرید وسایل نقلیه</p>
+  <ul class="expl-list">
+    <li>برند و مدل: <span id="ex_brand">مرسدس بنز اکتروس — مدل سال ۲۰۱۸</span></li>
+    <li>تعداد: <span id="ex_countNew">۴۰ دستگاه</span></li>
+    <li>قیمت هر دستگاه: <span id="ex_price">95,000 دلار</span></li>
+    <li>تجهیزات جانبی (بست بار، یدک‌کش اضافی و مشابه): <span id="ex_equipParts">200,000 دلار</span></li>
+    <li>ساختمان تعمیرگاه: <span id="ex_garageTotal">200,000 دلار</span></li>
+    <li>جمع سرمایه‌گذاری اولیه: <span id="ex_totalInvest">4,000,000 دلار</span></li>
+  </ul>
+
+  <p class="section-title" style="--accent:#2563eb;"><span class="dot"></span>۳) تخصیص مسیرها و نرخ حمل</p>
+  <ul class="expl-list" id="route_expl_list">
+    <li id="ex_li_BF" data-rate-id="inp_rateBF">مسیر مرز به کارخانه: <span id="ex_countBF">۱۰ دستگاه، نرخ 1.78 دلار هر کیلومتر</span></li>
+    <li id="ex_li_BB" data-rate-id="inp_rateBB">مسیر مرز به شعب: <span id="ex_countBB">۱۰ دستگاه، نرخ 2.31 دلار هر کیلومتر</span></li>
+    <li id="ex_li_FB" data-rate-id="inp_rateFB">مسیر کارخانه به شعب: <span id="ex_countFB">۲۲ دستگاه، نرخ 1.33 دلار هر کیلومتر</span></li>
+  </ul>
+
+  <p class="section-title" style="--accent:var(--orange);"><span class="dot"></span>۴) روزهای عملیاتی و هزینه سوخت</p>
+  <ul class="expl-list">
+    <li>مصرف سوخت هر تریلی: <span id="ex_fuelCons">40 لیتر به‌ازای هر ۱۰۰ کیلومتر</span></li>
+    <li>قیمت پایه گازوئیل: <span id="ex_fuelPrice">۵۰۰ LC هر لیتر، رشد سالانه ۱ درصد</span></li>
+    <li>میانگین مسافت ماهانه هر تریلی: <span id="ex_avgDist">۱۲,۰۰۰ کیلومتر در ماه (نیمی برگشت خالی)</span></li>
+  </ul>
+
+  <p class="section-title" style="--accent:var(--red);"><span class="dot"></span>۵) هزینه نیروی انسانی و تعمیرات</p>
+  <ul class="expl-list">
+    <li>راننده تریلی: <span id="ex_driverN">۴۷</span> نفر — حقوق هر نفر <span id="ex_driver">ماهانه ۲,۵۰۰,۱۵۰ LC (معادل ۱,۶۱۳ دلار)، سالانه ۳۰,۰۰۱,۸۰۰ LC (معادل ۱۹,۳۵۶ دلار)</span></li>
+    <li>سرپرست ناوگان: <span id="ex_supN">۲</span> نفر — حقوق هر نفر <span id="ex_sup">ماهانه ۳,۱۰۰,۰۰۰ LC (معادل ۲,۰۰۰ دلار)، سالانه ۳۷,۲۰۰,۰۰۰ LC (معادل ۲۴,۰۰۰ دلار)</span></li>
+    <li>تعمیرکار: <span id="ex_mechN">۳</span> نفر — حقوق هر نفر <span id="ex_mech">ماهانه ۲,۵۰۰,۱۵۰ LC (معادل ۱,۶۱۳ دلار)، سالانه ۳۰,۰۰۱,۸۰۰ LC (معادل ۱۹,۳۵۶ دلار)</span></li>
+    <li>نیروی پشتیبانی: <span id="ex_supportN">۵</span> نفر — حقوق هر نفر <span id="ex_support">ماهانه ۴,۰۰۰,۰۰۸ LC (معادل ۲,۵۸۱ دلار)، سالانه ۴۸,۰۰۰,۰۹۶ LC (معادل ۳۰,۹۶۸ دلار)</span> — در سناریوی عدم ادغام (شرکت تابعه)، این هزینه نامرتبط تلقی و از محاسبات کنار گذاشته می‌شود.</li>
+    <li>لاستیک: هر تریلی <span id="ex_tiresN">۱۰</span> حلقه، قیمت هر حلقه <span id="ex_tires">۵۰۰,۰۳۰ LC (معادل ۳۲۲.۶ دلار)</span> — جمعاً <span id="ex_tiresTotal">۵,۰۰۰,۳۰۰ LC (معادل ۳,۲۲۶ دلار) در سال، هر تریلی</span></li>
+    <li>روغن: تعویض هر <span id="ex_oilInterval">۱۲,۰۰۰</span> کیلومتر، هزینه هر بار <span id="ex_oil">۴۱۶,۹۵۰ LC (معادل ۲۶۹ دلار)</span> — با میانگین مسافت فعلی، معادل <span id="ex_oilTimes">۱.۰</span> بار تعویض در سال</li>
+    <li>بیمه، مجوز، GPS و نرم‌افزار: هر تریلی سالانه <span id="ex_insGps">۳,۱۰۰,۰۰۰ LC (معادل ۲,۰۰۰ دلار)</span></li>
+    <li>قطعات تعمیرات دوره‌ای (گیربکس و سرویس‌ها): معادل <span id="ex_periodic">۲.۱٪ قیمت تریلی، یعنی ۳,۰۹۲,۲۵۰ LC (معادل ۱,۹۹۵ دلار) در سال، هر تریلی</span></li>
+    <li>تأمین مالی سرمایه‌گذاری: <span id="ex_loan">غیرفعال</span></li>
+  </ul>
+
+  <p class="section-title" style="--accent:var(--navy);"><span class="dot"></span>۶) سایر مفروضات</p>
+  <ul class="expl-list">
+    <li>در سال نخست عملیات (۲۰۲۷)، مبلغ <span id="ex_taxAdj">۶۰,۰۰۰ دلار (معادل ۹۳,۰۰۰,۰۰۰ LC)</span> به‌عنوان تعدیل مالیاتی از صرفه‌جویی ناخالص کسر می‌شود؛ این رقم در سال‌های بعد متناسب با نرخ تورم رشد می‌کند.</li>
+    <li>در پایان سال پنجم (۲۰۳۱)، درصدی معادل <span id="ex_salvagePct">۱۵٪</span> از ارزش خرید تریلی‌ها (نه تجهیزات جانبی و نه ساختمان تعمیرگاه) به‌عنوان ارزش اسقاط ناوگان محاسبه و به‌صورت خودکار به جریان نقدی همان سال اضافه می‌شود؛ با مفروضات فعلی این رقم برابر <span id="ex_salvageValue">۵۷۰,۰۰۰ دلار</span> است.</li>
+    <li>هزینه اجاره دفتر شرکت تابعه <span id="ex_officeRent">۸۰,۰۰۰,۰۰۰ LC (معادل ۵۱,۶۱۳ دلار) در سال</span> است؛ این مبلغ صرفه‌جویی‌ای است که تنها در سناریوی ادغام شرکت تابعه در شرکت مادر محقق می‌شود و به درآمد آن سناریو اضافه می‌گردد. در سناریوی عدم ادغام، این صرفه‌جویی لحاظ نمی‌شود.</li>
+  </ul>
+</section>
+
+<!-- ============ TAB 4 : HISTORICAL FINANCIALS ============ -->
+<section class="page" id="l2">
+  <div class="page-head">
+    <span class="eyebrow">صورت‌های مالی تاریخی</span>
+    <p>این ارقام صرفاً به بخش حمل بار شرکت تابعه اختصاص دارد و بیانگر کل درآمد شرکت نیست.</p>
+  </div>
+
+  <div class="gtable" style="grid-template-columns:2fr 1fr 1fr 1fr;">
+    <div class="gc gh">شرح</div>
+    <div class="gc gh">۶ماهه اول ۲۰۲۵</div>
+    <div class="gc gh">۶ماهه اول ۲۰۲۶</div>
+    <div class="gc gh">سالانه ۲۰۲۵ (کامل)</div>
+
+    <div class="gc glabel">درآمد حمل بار</div>
+    <div class="gc num">2,483,268</div><div class="gc num">4,445,384</div><div class="gc num">5,909,384</div>
+
+    <div class="gc glabel galt">بهای تمام‌شده</div>
+    <div class="gc num galt">(2,321,707)</div><div class="gc num galt">(4,326,077)</div><div class="gc num galt">(5,661,850)</div>
+
+    <div class="gc glabel">هزینه اداری‌وعمومی</div>
+    <div class="gc num">(21,515)</div><div class="gc num">(23,796)</div><div class="gc num">(44,522)</div>
+
+    <div class="gc glabel galt">مالیات - سهم بخش حمل بار از عملکرد</div>
+    <div class="gc num galt">(21,007)</div><div class="gc num galt">(14,327)</div><div class="gc num galt">(30,452)</div>
+
+    <div class="gc glabel gtotal">سود عملیاتی (EBT)</div>
+    <div class="gc num gtotal">140,045</div><div class="gc num gtotal">95,511</div><div class="gc num gtotal">203,013</div>
+
+    <div class="gc glabel gmargin">حاشیه بهای تمام‌شده</div>
+    <div class="gc num gmargin">93.5%</div><div class="gc num gmargin">97.3%</div><div class="gc num gmargin">95.8%</div>
+
+    <div class="gc glabel gmargin row-end">حاشیه سود عملیاتی</div>
+    <div class="gc num gmargin row-end">5.6%</div><div class="gc num gmargin row-end">2.1%</div><div class="gc num gmargin row-end">3.4%</div>
+  </div>
+  <p class="foot-note" style="color:var(--purple); font-weight:600;">همه ارقام به دلار آمریکا (USD) است. ارقام داخل پرانتز، هزینه است.</p>
+</section>
+
+<!-- ============ TAB 5 : 2-YEAR PROJECT RESULT ============ -->
+<section class="page" id="l5">
+  <div class="page-head">
+    <span class="eyebrow">نتیجه پروژه (۲ ساله) <span class="live-badge">⚡ زنده</span></span>
+    <div class="scenario-picker">
+      <span class="lbl">سرمایه‌گذاری در کدام مد نظر است؟</span>
+      <select class="editnum" id="inp_taxScenario2yr">
+        <option value="sulaymaniyah">ادغام در شرکت مادر (معاف از مالیات)</option>
+        <option value="ainalfahd">عدم ادغام — خرید برای شرکت تابعه (مشمول مالیات)</option>
+      </select>
+    </div>
+    <button class="excel-btn" id="btn_excel_l5">📊 خروجی اکسل</button>
+  </div>
+
+  <div class="gtable" style="grid-template-columns:1.6fr 0.95fr 0.95fr 0.95fr;">
+    <div class="gc gh">شرح</div>
+    <div class="gc gh">۲۰۲۶<br><span style="font-weight:500;font-size:9.5px;">(سال صفر)</span></div><div class="gc gh">۲۰۲۷</div><div class="gc gh">۲۰۲۸</div>
+
+    <div class="gc glabel">سرمایه‌گذاری</div>
+    <div class="gc num neg" id="t5_invest_0">(4,000,000)</div><div class="gc num">0</div><div class="gc num">0</div>
+
+    <div class="gc glabel galt">درآمد (صرفه‌جویی)</div>
+    <div class="gc num galt">0</div><div class="gc num galt" id="t5_rev_2027">5,051,520</div><div class="gc num galt" id="t5_rev_2028">5,203,066</div>
+
+    <div class="gc glabel">هزینه سوخت</div>
+    <div class="gc num">0</div><div class="gc num neg" id="t5_fuel_2027">(780,387)</div><div class="gc num neg" id="t5_fuel_2028">(788,191)</div>
+
+    <div class="gc glabel galt">هزینه نیروی انسانی</div>
+    <div class="gc num galt">0</div><div class="gc num galt neg" id="t5_labor_2027">(1,170,639)</div><div class="gc num galt neg" id="t5_labor_2028">(1,205,758)</div>
+
+    <div class="gc glabel">هزینه تعمیرات</div>
+    <div class="gc num">0</div><div class="gc num neg" id="t5_maint_2027">(438,984)</div><div class="gc num neg" id="t5_maint_2028">(452,154)</div>
+
+    <div class="gc glabel galt">صرفه‌جویی مالیات پرداختنی شرکت تابعه</div>
+    <div class="gc num galt">0</div><div class="gc num galt neg" id="t5_taxadj_2027">(60,000)</div><div class="gc num galt neg" id="t5_taxadj_2028">(61,800)</div>
+
+    <div class="gc glabel t5-garage-row">هزینه ساخت تعمیرگاه (یک‌باره)</div>
+    <div class="gc num t5-garage-row">0</div><div class="gc num neg t5-garage-row" id="t5_garage_2027">(200,000)</div><div class="gc num t5-garage-row">0</div>
+
+    <div class="gc glabel gtotal ghighlight galt">سود قبل از مالیات (EBT)</div>
+    <div class="gc num gtotal ghighlight galt">—</div><div class="gc num gtotal ghighlight galt" id="t5_ebt_2027">2,601,510</div><div class="gc num gtotal ghighlight galt" id="t5_ebt_2028">2,695,163</div>
+
+    <div class="gc glabel" id="t5_tax_label">مالیات (معاف - شرکت مادر)</div>
+    <div class="gc num">—</div><div class="gc num" id="t5_tax_2027">0</div><div class="gc num" id="t5_tax_2028">0</div>
+
+    <div class="gc glabel gtotal ghighlight galt">جریان نقدی خالص</div>
+    <div class="gc num gtotal ghighlight galt neg" id="t5_netcf_0">(4,000,000)</div><div class="gc num gtotal ghighlight galt" id="t5_netcf_2027">2,401,510</div><div class="gc num gtotal ghighlight galt" id="t5_netcf_2028">2,695,163</div>
+
+    <div class="gc glabel gtotal">جریان نقدی تنزیل‌شده</div>
+    <div class="gc num gtotal neg" id="t5_disc_0">(4,200,000)</div><div class="gc num gtotal" id="t5_disc_2027">2,144,205</div><div class="gc num gtotal" id="t5_disc_2028">2,148,567</div>
+
+    <div class="gc glabel gtotal galt">جریان نقدی تنزیل‌شده تجمعی</div>
+    <div class="gc num gtotal galt neg" id="t5_cum_0">(4,200,000)</div><div class="gc num gtotal galt neg" id="t5_cum_2027">(1,855,795)</div><div class="gc num gtotal galt pos" id="t5_cum_2028">292,773</div>
+
+    <div class="gc glabel gmargin">خالص ارزش فعلی (NPV)</div>
+    <div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin pos" id="t5_npv">292,773</div>
+
+    <div class="gc glabel gmargin">نرخ بازده داخلی (IRR)</div>
+    <div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin pos" id="t5_irr">17.4%</div>
+
+    <div class="gc glabel gmargin galt">دوره بازگشت سرمایه (ساده) <span style="font-weight:500; font-size:9.5px; display:block;">Payback Period</span></div>
+    <div class="gc num gmargin galt">—</div><div class="gc num gmargin galt">—</div><div class="gc num gmargin galt" id="t5_payback">1.59 سال</div>
+
+    <div class="gc glabel gmargin row-end">دوره بازگشت سرمایه (تنزیل‌شده) <span style="font-weight:500; font-size:9.5px; display:block;">Discounted Payback Period</span></div>
+    <div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end" id="t5_dpayback">1.86 سال</div>
+  </div>
+
+  <div class="verdict">
+    <h3>وضعیت سرمایه‌گذاری در پایان سال دوم</h3>
+    <p id="l5_verdict_text">طی دو سال نخست، اصل سرمایه‌گذاری ۴ میلیون دلاری به‌طور کامل بازیافت شده و افزون بر آن، حدود ۲۹۳ هزار دلار ارزش فعلی خالص ایجاد می‌شود. با این حال، نتیجه دوساله به‌تنهایی کافی نیست؛ با توجه به مخارج احتمالی آتی، لازم است بازه‌های میان‌دوره‌ای و بلندمدت (پنج‌ساله) نیز بررسی شود.</p>
+  </div>
+</section>
+
+<!-- ============ TAB 6 : 5-YEAR ANNUAL P&L ============ -->
+<section class="page" id="l6">
+  <div class="page-head">
+    <span class="eyebrow">نتیجه پروژه (۵ ساله)</span>
+    <div class="scenario-picker">
+      <span class="lbl">سرمایه‌گذاری در کدام مد نظر است؟</span>
+      <select class="editnum" id="inp_taxScenario5yr">
+        <option value="sulaymaniyah">ادغام در شرکت مادر (معاف از مالیات)</option>
+        <option value="ainalfahd">عدم ادغام — خرید برای شرکت تابعه (مشمول مالیات)</option>
+      </select>
+    </div>
+    <button class="excel-btn" id="btn_excel_l6">📊 خروجی اکسل</button>
+  </div>
+
+  <div style="font-size:13px; font-weight:800; color:#B5651D; margin-bottom:8px;">گزینه A — سرمایه‌گذاری در ناوگان حمل و نقل <span class="live-badge">⚡ زنده</span></div>
+  <div class="gtable" style="grid-template-columns:1.5fr 0.9fr 0.9fr 0.9fr 0.9fr 0.9fr 0.9fr;">
+    <div class="gc gh">شرح</div>
+    <div class="gc gh">۲۰۲۶<br><span style="font-weight:500;font-size:9.5px;">(سال صفر)</span></div><div class="gc gh">۲۰۲۷</div><div class="gc gh">۲۰۲۸</div><div class="gc gh">۲۰۲۹</div><div class="gc gh">۲۰۳۰</div><div class="gc gh">۲۰۳۱</div>
+
+    <div class="gc glabel">سرمایه‌گذاری</div>
+    <div class="gc num neg" id="t6_invest_0">(4,000,000)</div><div class="gc num">0</div><div class="gc num">0</div><div class="gc num">0</div><div class="gc num">0</div><div class="gc num">0</div>
+
+    <div class="gc glabel galt">درآمد (صرفه‌جویی)</div>
+    <div class="gc num galt">0</div><div class="gc num galt" id="t6_rev_2027">5,051,520</div><div class="gc num galt" id="t6_rev_2028">5,203,066</div><div class="gc num galt" id="t6_rev_2029">5,359,158</div><div class="gc num galt" id="t6_rev_2030">5,519,932</div><div class="gc num galt" id="t6_rev_2031">5,685,530</div>
+
+    <div class="gc glabel">هزینه سوخت</div>
+    <div class="gc num">0</div><div class="gc num neg" id="t6_fuel_2027">(780,387)</div><div class="gc num neg" id="t6_fuel_2028">(788,191)</div><div class="gc num neg" id="t6_fuel_2029">(796,073)</div><div class="gc num neg" id="t6_fuel_2030">(804,034)</div><div class="gc num neg" id="t6_fuel_2031">(812,074)</div>
+
+    <div class="gc glabel galt">هزینه نیروی انسانی</div>
+    <div class="gc num galt">0</div><div class="gc num galt neg" id="t6_labor_2027">(1,170,639)</div><div class="gc num galt neg" id="t6_labor_2028">(1,205,758)</div><div class="gc num galt neg" id="t6_labor_2029">(1,241,931)</div><div class="gc num galt neg" id="t6_labor_2030">(1,279,189)</div><div class="gc num galt neg" id="t6_labor_2031">(1,317,564)</div>
+
+    <div class="gc glabel">هزینه تعمیرات</div>
+    <div class="gc num">0</div><div class="gc num neg" id="t6_maint_2027">(438,984)</div><div class="gc num neg" id="t6_maint_2028">(452,154)</div><div class="gc num neg" id="t6_maint_2029">(465,718)</div><div class="gc num neg" id="t6_maint_2030">(479,690)</div><div class="gc num neg" id="t6_maint_2031">(494,080)</div>
+
+    <div class="gc glabel galt">صرفه‌جویی مالیات پرداختنی شرکت تابعه</div>
+    <div class="gc num galt">0</div><div class="gc num galt neg" id="t6_taxadj_2027">(60,000)</div><div class="gc num galt neg" id="t6_taxadj_2028">(61,800)</div><div class="gc num galt neg" id="t6_taxadj_2029">(63,654)</div><div class="gc num galt neg" id="t6_taxadj_2030">(65,564)</div><div class="gc num galt neg" id="t6_taxadj_2031">(67,531)</div>
+
+    <div class="gc glabel t6-garage-row">هزینه ساخت تعمیرگاه (یک‌باره)</div>
+    <div class="gc num t6-garage-row">0</div><div class="gc num neg t6-garage-row" id="t6_garage_2027">(200,000)</div><div class="gc num t6-garage-row">0</div><div class="gc num t6-garage-row">0</div><div class="gc num t6-garage-row">0</div><div class="gc num t6-garage-row">0</div>
+
+    <div class="gc glabel gtotal ghighlight">سود قبل از مالیات (EBT)</div>
+    <div class="gc num gtotal ghighlight">—</div><div class="gc num gtotal ghighlight" id="t6_ebt_2027">2,601,510</div><div class="gc num gtotal ghighlight" id="t6_ebt_2028">2,695,163</div><div class="gc num gtotal ghighlight" id="t6_ebt_2029">2,791,782</div><div class="gc num gtotal ghighlight" id="t6_ebt_2030">2,891,457</div><div class="gc num gtotal ghighlight" id="t6_ebt_2031">2,994,281</div>
+
+    <div class="gc glabel galt" id="t6_tax_label">مالیات (معاف - شرکت مادر)</div>
+    <div class="gc num galt">—</div><div class="gc num galt" id="t6_tax_2027">0</div><div class="gc num galt" id="t6_tax_2028">0</div><div class="gc num galt" id="t6_tax_2029">0</div><div class="gc num galt" id="t6_tax_2030">0</div><div class="gc num galt" id="t6_tax_2031">0</div>
+
+    <div class="gc glabel">ارزش اسقاط ناوگان (پایان سال پنجم)</div>
+    <div class="gc num">0</div><div class="gc num">0</div><div class="gc num">0</div><div class="gc num">0</div><div class="gc num">0</div><div class="gc num pos" id="t6_salvage_2031">600,000</div>
+
+    <div class="gc glabel gtotal ghighlight galt">جریان نقدی خالص</div>
+    <div class="gc num gtotal ghighlight galt neg" id="t6_netcf_0">(4,000,000)</div><div class="gc num gtotal ghighlight galt" id="t6_netcf_2027">2,401,510</div><div class="gc num gtotal ghighlight galt" id="t6_netcf_2028">2,695,163</div><div class="gc num gtotal ghighlight galt" id="t6_netcf_2029">2,791,782</div><div class="gc num gtotal ghighlight galt" id="t6_netcf_2030">2,891,457</div><div class="gc num gtotal ghighlight galt" id="t6_netcf_2031">3,594,281</div>
+
+    <div class="gc glabel gtotal">جریان نقدی تنزیل‌شده</div>
+    <div class="gc num gtotal neg" id="t6_disc_0">(4,200,000)</div><div class="gc num gtotal" id="t6_disc_2027">2,144,205</div><div class="gc num gtotal" id="t6_disc_2028">2,148,567</div><div class="gc num gtotal" id="t6_disc_2029">1,987,135</div><div class="gc num gtotal" id="t6_disc_2030">1,837,573</div><div class="gc num gtotal" id="t6_disc_2031">2,039,492</div>
+
+    <div class="gc glabel gtotal galt">جریان نقدی تنزیل‌شده تجمعی</div>
+    <div class="gc num gtotal galt neg" id="t6_cum_0">(4,200,000)</div><div class="gc num gtotal galt neg" id="t6_cum_2027">(1,855,795)</div><div class="gc num gtotal galt pos" id="t6_cum_2028">292,773</div><div class="gc num gtotal galt pos" id="t6_cum_2029">2,279,908</div><div class="gc num gtotal galt pos" id="t6_cum_2030">4,117,481</div><div class="gc num gtotal galt pos" id="t6_cum_2031">6,156,973</div>
+
+    <div class="gc glabel gmargin">خالص ارزش فعلی (NPV)</div>
+    <div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin pos" id="t6_npv">6,156,973</div>
+
+    <div class="gc glabel gmargin galt">نرخ بازده داخلی (IRR)</div>
+    <div class="gc num gmargin galt">—</div><div class="gc num gmargin galt">—</div><div class="gc num gmargin galt">—</div><div class="gc num gmargin galt">—</div><div class="gc num gmargin galt">—</div><div class="gc num gmargin galt pos" id="t6_irr">60.3%</div>
+
+    <div class="gc glabel gmargin">دوره بازگشت سرمایه (ساده) <span style="font-weight:500; font-size:9.5px; display:block;">Payback Period</span></div>
+    <div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin">—</div><div class="gc num gmargin" id="t6_payback">1.59 سال</div>
+
+    <div class="gc glabel gmargin galt row-end">دوره بازگشت سرمایه (تنزیل‌شده) <span style="font-weight:500; font-size:9.5px; display:block;">Discounted Payback Period</span></div>
+    <div class="gc num gmargin galt row-end">—</div><div class="gc num gmargin galt row-end">—</div><div class="gc num gmargin galt row-end">—</div><div class="gc num gmargin galt row-end">—</div><div class="gc num gmargin galt row-end">—</div><div class="gc num gmargin galt row-end" id="t6_dpayback">1.86 سال</div>
+  </div>
+
+  <div style="font-size:13px; font-weight:800; color:var(--navy-2); margin:26px 0 8px;">گزینه B — ادامه وضع موجود</div>
+  <div class="gtable" style="grid-template-columns:1.5fr 0.9fr 0.9fr 0.9fr 0.9fr 0.9fr 0.9fr;">
+    <div class="gc gh">شرح</div>
+    <div class="gc gh">۲۰۲۶</div><div class="gc gh">۲۰۲۷</div><div class="gc gh">۲۰۲۸</div><div class="gc gh">۲۰۲۹</div><div class="gc gh">۲۰۳۰</div><div class="gc gh">۲۰۳۱</div>
+
+    <div class="gc glabel cell-hover">درآمد
+      <div class="cell-pop" style="width:250px;">
+        <div class="cp-row"><span>مبنای محاسبه</span><span>سالانه ۲۰۲۵</span></div>
+        <div class="cp-row"><span>مبنا (FY2025 واقعی)</span><span class="num">5,909,384</span></div>
+        <div class="cp-row"><span>نرخ رشد سالانه</span><span class="num">فقط تورم = ۳٪</span></div>
+        <div class="cp-row"><span>۲۰۲۶ = مبنا × ۱.۰۳</span><span class="num">6,086,666</span></div>
+        <div class="cp-row"><span>هر سال بعد × ۱.۰۳</span><span>تا ۲۰۳۱</span></div>
+      </div>
+    </div>
+    <div class="gc num">6,086,666</div><div class="gc num">6,269,266</div><div class="gc num">6,457,344</div><div class="gc num">6,651,064</div><div class="gc num">6,850,596</div><div class="gc num">7,056,114</div>
+
+    <div class="gc glabel galt cell-hover">بهای تمام‌شده
+      <div class="cell-pop" style="width:250px;">
+        <div class="cp-row"><span>مبنای محاسبه</span><span>سالانه ۲۰۲۵</span></div>
+        <div class="cp-row"><span>مبنا (FY2025 واقعی)</span><span class="num">(5,661,850)</span></div>
+        <div class="cp-row"><span>نرخ رشد سالانه</span><span class="num">فقط تورم = ۳٪</span></div>
+        <div class="cp-row"><span>۲۰۲۶ = مبنا × ۱.۰۳</span><span class="num">(5,831,705)</span></div>
+        <div class="cp-row"><span>هر سال بعد × ۱.۰۳</span><span>تا ۲۰۳۱</span></div>
+      </div>
+    </div>
+    <div class="gc num galt">(5,831,705)</div><div class="gc num galt">(6,006,656)</div><div class="gc num galt">(6,186,856)</div><div class="gc num galt">(6,372,462)</div><div class="gc num galt">(6,563,636)</div><div class="gc num galt">(6,760,545)</div>
+
+    <div class="gc glabel">هزینه عمومی و اداری</div>
+    <div class="gc num">(45,858)</div><div class="gc num">(47,233)</div><div class="gc num">(48,650)</div><div class="gc num">(50,110)</div><div class="gc num">(51,613)</div><div class="gc num">(53,162)</div>
+
+    <div class="gc glabel gtotal ghighlight galt">سود قبل از مالیات (EBT)</div>
+    <div class="gc num gtotal ghighlight galt">209,103</div><div class="gc num gtotal ghighlight galt">215,376</div><div class="gc num gtotal ghighlight galt">221,837</div><div class="gc num gtotal ghighlight galt">228,492</div><div class="gc num gtotal ghighlight galt">235,347</div><div class="gc num gtotal ghighlight galt">242,408</div>
+
+    <div class="gc glabel">مالیات (۱۵٪)</div>
+    <div class="gc num">(31,365)</div><div class="gc num">(32,306)</div><div class="gc num">(33,276)</div><div class="gc num">(34,274)</div><div class="gc num">(35,302)</div><div class="gc num">(36,361)</div>
+
+    <div class="gc glabel gtotal ghighlight galt">جریان نقدی خالص</div>
+    <div class="gc num gtotal ghighlight galt">177,737</div><div class="gc num gtotal ghighlight galt">183,070</div><div class="gc num gtotal ghighlight galt">188,562</div><div class="gc num gtotal ghighlight galt">194,219</div><div class="gc num gtotal ghighlight galt">200,045</div><div class="gc num gtotal ghighlight galt">206,046</div>
+
+    <div class="gc glabel gtotal">جریان نقدی تنزیل‌شده</div>
+    <div class="gc num gtotal">177,737</div><div class="gc num gtotal">163,455</div><div class="gc num gtotal">150,320</div><div class="gc num gtotal">138,241</div><div class="gc num gtotal">127,132</div><div class="gc num gtotal">116,916</div>
+
+    <div class="gc glabel gmargin row-end">خالص ارزش فعلی (NPV)</div>
+    <div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end pos" id="t6B_npv">873,802</div>
+  </div>
+  <p class="foot-note" style="color:var(--purple); font-weight:600;">همه ارقام به دلار آمریکا (USD) است. ارقام داخل پرانتز، هزینه است.</p>
+  <p class="foot-note" style="color:var(--purple); font-weight:600;">علت برابر نبودن درآمد ناشی از صرفه‌جویی با بهای تمام‌شده در حالت ادامه وضع موجود این است که پیمانکار تأمین‌کننده تریلی در حال حاضر از تعداد بیشتری تریلی استفاده می‌نماید. به عبارتی در صورت سرمایه‌گذاری، در سال‌های آتی نیاز به تریلی بیشتری خواهد بود.</p>
+</section>
+
+<!-- ============ TAB : 5-YEAR RESULT WITH LOAN REPAYMENT ASSUMPTION ============ -->
+<section class="page" id="l9">
+  <div class="page-head">
+    <span class="eyebrow">نتیجه ۵ ساله با بازپرداخت <span class="live-badge">⚡ زنده</span></span>
+    <button class="excel-btn" id="btn_excel_l9">📊 خروجی اکسل</button>
+    <p>این صفحه فقط زمانی معنا دارد که تأمین مالی سرمایه‌گذاری (در صفحه مفروضات) فعال باشد. بازپرداخت کامل اصل و فرع وام (با ارزش آتی) به‌صورت یکجا در همان سالی نمایش داده می‌شود که جریان نقدی انباشته سرمایه‌گذاری برای اولین بار توان پوشش آن را پیدا کند.</p>
+  </div>
+
+  <div class="gtable" style="grid-template-columns:1.9fr 1fr 1fr 1fr 1fr;">
+    <div class="gc gh">شرح</div>
+    <div class="gc gh">۲۰۲۶<br><span style="font-weight:500;font-size:9.5px;">(سال صفر)</span></div><div class="gc gh">۲۰۲۷</div><div class="gc gh">۲۰۲۸</div><div class="gc gh">۲۰۲۹</div>
+
+    <div class="gc glabel gtotal ghighlight">خالص جریان نقدی سرمایه‌گذاری</div>
+    <div class="gc num gtotal ghighlight neg" id="t9_invcf_0">(4,200,000)</div><div class="gc num gtotal ghighlight" id="t9_invcf_2027">2,401,510</div><div class="gc num gtotal ghighlight" id="t9_invcf_2028">2,695,163</div><div class="gc num gtotal ghighlight" id="t9_invcf_2029">2,791,782</div>
+
+    <div class="gc glabel gmargin">خالص جریان نقدی تأمین مالی</div>
+    <div class="gc num gmargin pos" id="t9_fincf_0">4,200,000</div><div class="gc num gmargin" id="t9_fincf_2027">0</div><div class="gc num gmargin" id="t9_fincf_2028">0</div><div class="gc num gmargin" id="t9_fincf_2029">0</div>
+
+    <div class="gc glabel gtotal ghighlight galt">جریان نقدی خالص کل</div>
+    <div class="gc num gtotal ghighlight galt" id="t9_totalcf_0">0</div><div class="gc num gtotal ghighlight galt" id="t9_totalcf_2027">2,401,510</div><div class="gc num gtotal ghighlight galt" id="t9_totalcf_2028">2,695,163</div><div class="gc num gtotal ghighlight galt" id="t9_totalcf_2029">2,791,782</div>
+
+    <div class="gc glabel gtotal">جریان نقدی تنزیل‌شده</div>
+    <div class="gc num gtotal" id="t9_disc_0">—</div><div class="gc num gtotal" id="t9_disc_2027">0</div><div class="gc num gtotal" id="t9_disc_2028">0</div><div class="gc num gtotal" id="t9_disc_2029">0</div>
+
+    <div class="gc glabel gtotal galt">جریان نقدی تنزیل‌شده تجمعی</div>
+    <div class="gc num gtotal galt" id="t9_cum_0">—</div><div class="gc num gtotal galt" id="t9_cum_2027">0</div><div class="gc num gtotal galt" id="t9_cum_2028">0</div><div class="gc num gtotal galt" id="t9_cum_2029">0</div>
+
+    <div class="gc glabel gmargin row-end">خالص ارزش فعلی (NPV)</div>
+    <div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end">—</div><div class="gc num gmargin row-end" id="t9_npv">0</div>
+  </div>
+  <div class="verdict" style="margin-top:16px;">
+    <h3>دوره بازگشت سرمایه (ساده)</h3>
+    <p>بازگشت سرمایه تقریباً در سال <b id="t9_payback_year_span">۲۰۲۹</b> رخ می‌دهد — معادل حدود <b id="t9_payback_years">2.5</b> سال.</p>
+    <p id="t9_payback_fallback" style="display:none;">با مفروضات فعلی، بازگشت سرمایه ظرف افق نشان‌داده‌شده محقق نمی‌شود.</p>
+  </div>
+  <p class="foot-note" id="t9_payoff_note" style="color:var(--purple); font-weight:600;">بازپرداخت کامل اصل و فرع وام (ارزش آتی) در سال ۲۰۲۹ رخ می‌دهد.</p>
+</section>
+
+<!-- ============ TAB 7 : FINAL CONCLUSION ============ -->
+<section class="page" id="l7">
+  <div class="page-head">
+    <span class="eyebrow">نتیجه‌گیری کلی <span class="live-badge">⚡ زنده (سمت A)</span></span>
+    <p>این صفحه به پرسش نخست پاسخ می‌دهد: آیا سرمایه‌گذاری در خرید ناوگان تریلی توجیه اقتصادی دارد، یا ادامه اجاره ناوگان به‌صرفه‌تر است؟</p>
+  </div>
+
+  <div class="vs-wrap">
+    <div class="vs-col optA">
+      <div class="vs-head optA">گزینه A — سرمایه‌گذاری در ناوگان حمل و نقل</div>
+      <div class="vs-row"><span class="vs-k">سرمایه‌گذاری اولیه</span><span class="vs-v num" id="l7_invest">$4,000,000</span></div>
+      <div class="vs-row win"><span class="vs-k">خالص ارزش فعلی</span><span class="vs-v num" id="l7_npv">$6,156,973</span></div>
+      <div class="vs-row"><span class="vs-k">نرخ بازده داخلی سالانه</span><span class="vs-v num" id="l7_irr">60.3%</span></div>
+      <div class="vs-row"><span class="vs-k">دوره بازگشت (ساده)</span><span class="vs-v num" id="l7_payback">1.59 سال</span></div>
+      <div class="vs-row"><span class="vs-k">دوره بازگشت (تنزیل‌شده)</span><span class="vs-v num" id="l7_dpayback">1.86 سال</span></div>
+      <div class="vs-row win"><span class="vs-k">جمع سود خالص ۵ ساله (بعد از مالیات)</span><span class="vs-v num" id="l7_total5">$14,374,193</span></div>
+    </div>
+    <div class="vs-mid"><span class="vs-badge">VS</span></div>
+    <div class="vs-col optB">
+      <div class="vs-head optB">گزینه B — ادامه وضع موجود</div>
+      <div class="vs-row"><span class="vs-k">سرمایه‌گذاری اولیه</span><span class="vs-v num">$0</span></div>
+      <div class="vs-row"><span class="vs-k">خالص ارزش فعلی</span><span class="vs-v num">$873,802</span></div>
+      <div class="vs-row"><span class="vs-k">نرخ بازده داخلی</span><span class="vs-v">تعریف نمی‌شود</span></div>
+      <div class="vs-row"><span class="vs-k">دوره بازگشت</span><span class="vs-v">تعریف نمی‌شود</span></div>
+      <div class="vs-row"><span class="vs-k">بازگشت تنزیل‌شده</span><span class="vs-v">تعریف نمی‌شود</span></div>
+      <div class="vs-row"><span class="vs-k">جمع سود خالص ۵ ساله (بعد از مالیات)</span><span class="vs-v num">$971,941</span></div>
+    </div>
+  </div>
+
+  <div class="grid g-3" style="margin-top:22px;">
+    <div class="card" style="--accent:var(--green);"><div class="kpi-label">تفاوت NPV دو گزینه</div><div class="kpi-value num pos" id="l7_npvdiff">$5,283,171</div></div>
+    <div class="card" style="--accent:var(--green);"><div class="kpi-label">اختلاف سود ۵ ساله</div><div class="kpi-value num pos" id="l7_profdiff">$13,402,252</div></div>
+    <div class="card" style="--accent:var(--navy-2);"><div class="kpi-label">IRR گزینه A نسبت به نرخ تنزیل</div><div class="kpi-value num pos" id="l7_irrvswacc">60.3% &gt; 12%</div></div>
+  </div>
+
+  <div class="verdict">
+    <p id="l7_verdict_text">گزینه A در هر سه شاخص اصلی (خالص ارزش فعلی، نرخ بازده داخلی و سود انباشته) به‌طور قابل‌توجهی نسبت به گزینه B برتری دارد. اصل سرمایه‌گذاری ظرف کمتر از ۱.۶ سال بازیافت می‌شود و طی پنج سال، بازدهی معادل حدود ۱۵ برابر سناریوی ادامه وضع موجود ایجاد می‌کند.</p>
+  </div>
+</section>
+
+<!-- ============ TAB 8 : QUALITATIVE EVALUATION ============ -->
+<section class="page" id="l8">
+  <div class="page-head">
+    <span class="eyebrow">ارزیابی کیفی <span class="live-badge">⚡ زنده</span></span>
+    <p>این صفحه پرسش دوم را بررسی می‌کند: در صورتی که پرسش نخست (خرید یا اجاره) به نفع خرید تصمیم‌گیری شود، آیا عملیات شرکت تابعه در شرکت مادر ادغام شود یا شرکت تابعه مستقل باقی بماند؟ مقایسه کیفی دو سناریو در ادامه آمده است.</p>
+  </div>
+
+  <div class="qual-flow">
+    <div class="qual-card">
+      <h3 class="qual-title good">ادغام در شرکت مادر</h3>
+      <p style="font-size:11px; font-weight:800; color:var(--green); margin:0 0 6px;">مزایا</p>
+      <ul>
+        <li>سرمایه‌گذاری در ناوگان حمل و نقل به جای پرداخت هزینه به اشخاص ثالث</li>
+        <li>اجتناب از تعطیلی یا تأخیر که در حال حاضر در سیستم فعلی این کشور وجود دارد</li>
+        <li>احتمال استفاده از معافیت مالیاتی، از طریق درخواست و اصلاح مجوز سرمایه‌گذاری</li>
+        <li>نظارت مؤثر بر عملیات و متمرکز کردن فرایند حمل‌ونقل</li>
+        <li>ارائه خدمات و توسعه ارائه خدمات به سایر شرکت‌ها (در صورت وجود ظرفیت مازاد)</li>
+      </ul>
+      <p style="font-size:11px; font-weight:800; color:#c8372f; margin:14px 0 6px;">معایب</p>
+      <ul style="color:#8a4a45;">
+        <li>سرمایه‌گذاری در کشور ثالث که فعالیت در آن با ریسک عدم ثبات سیاسی و اجتماعی همراه است</li>
+        <li>نیاز به تخصیص نیروی انسانی و ایجاد خط عملیاتی جدید</li>
+        <li>ایجاد تضاد منافع با کارگزاران محلی حمل و نقل در گمرک</li>
+        <li>لزوم در نظر گرفتن محدودیت‌هایی مانند وضعیت تولید، ظرفیت انبارها و زمان توقف خودروها هنگام بارگیری</li>
+        <li>عدم اخذ اسناد مالکیت به نام شرکت به دلیل مغایرت با شرح فعالیت</li>
+        <li id="l8_npv_neg_li1" style="display:none;">خالص ارزش فعلی (NPV) در این سناریو منفی است، به مبلغ <span class="num l8_npv_neg">$0</span></li>
+      </ul>
+    </div>
+    <div class="qual-card">
+      <h3 class="qual-title good">عدم ادغام (استقلال شرکت تابعه)</h3>
+      <p style="font-size:11px; font-weight:800; color:var(--green); margin:0 0 6px;">مزایا</p>
+      <ul>
+        <li>فعالیت مستقل و تخصصی شرکت تابعه، بدون نیاز به جابه‌جایی یا ادغام نیروی انسانی</li>
+        <li>در صورت اخذ مجوز سرمایه‌گذاری مستقل توسط شرکت تابعه، امکان بهره‌مندی از مشوق‌ها و ارز دولتی همچنان وجود دارد</li>
+      </ul>
+      <p style="font-size:11px; font-weight:800; color:#c8372f; margin:14px 0 6px;">معایب</p>
+      <ul style="color:#8a4a45;">
+        <li>عدم برخورداری از معافیت مالیاتی به‌طور خودکار (نیاز به اخذ مجوز سرمایه‌گذاری خواهد بود)</li>
+        <li>هزینه‌های عملیاتی و اداری همچنان باید در برنامه عملیاتی گنجانده شوند</li>
+        <li>سرمایه‌گذاری در کشوری ثالث با ریسک جنگ و عدم ثبات سیاسی و اقتصادی</li>
+        <li>نیاز به تخصیص جدید و جذب نیروی انسانی ماهر برای ناوگان</li>
+        <li>ایجاد تضاد منافع با کارگزاران محلی حمل و نقل در گمرک</li>
+        <li>عدم برخورداری از معافیت مالیاتی در صورت عدم اخذ مجوز سرمایه‌گذاری</li>
+        <li id="l8_npv_neg_li2" style="display:none;">خالص ارزش فعلی (NPV) در این سناریو منفی است، به مبلغ <span class="num l8_npv_neg">$0</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const btns = document.querySelectorAll('nav.tabs button');
+  const pages = document.querySelectorAll('section.page');
+  btns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = btn.getAttribute('data-target');
+      btns.forEach(b=>b.classList.remove('active'));
+      pages.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  /* ================= LIVE FINANCIAL MODEL ================= */
+  const YEARS = [2027,2028,2029,2030,2031];
+
+  function v(id){ const el = document.getElementById(id); return el ? parseFloat((el.value||'').toString().replace(/,/g,''))||0 : 0; }
+  function fmt(n){
+    const neg = n < 0;
+    const r = Math.round(Math.abs(n)).toLocaleString('en-US');
+    return neg ? `(${r})` : r;
+  }
+  function fmtMoney(n){ return '$'+fmt(n); }
+  function fmtUsdWord(n){ return fmt(n)+' دلار'; }
+  function setTxt(id, txt){ const el = document.getElementById(id); if(el) el.textContent = txt; }
+  function setHtml(id, html){ const el = document.getElementById(id); if(el) el.innerHTML = html; }
+  function setPosNeg(id, val){ const el = document.getElementById(id); if(!el) return; el.classList.toggle('neg', val<0); el.classList.toggle('pos', val>=0); }
+
+  function irr(cashflows){
+    function npvAt(r){
+      let total = cashflows[0];
+      for(let t=1; t<cashflows.length; t++) total += cashflows[t]/Math.pow(1+r, t);
+      return total;
+    }
+    let lo = -0.99, hi = 20;
+    if(npvAt(lo) * npvAt(hi) > 0) return null;
+    for(let i=0;i<200;i++){
+      const mid = (lo+hi)/2;
+      if(npvAt(mid) > 0) lo = mid; else hi = mid;
+    }
+    return (lo+hi)/2;
+  }
+  function payback(cfArr){
+    let cumC = cfArr[0], prev = cumC;
+    for(let t=1;t<cfArr.length;t++){
+      cumC += cfArr[t];
+      if(cumC >= 0) return (t-1) + (-prev)/cfArr[t];
+      prev = cumC;
+    }
+    return null;
+  }
+
+  // ---- loan schedule: simplified 3-option set ----
+  // ---- amortization: returns {interest:{y:...}, principal:{y:...}} with interest expensed annually (accrual) and principal only cash-out on payment years ----
+  function computeLoanAmortization(loanAmount, rate, schedule){
+    const interest = {}, principal = {};
+    YEARS.forEach(y=>{ interest[y]=0; principal[y]=0; });
+    if(loanAmount<=0) return {interest, principal};
+
+    if(schedule==='annual'){
+      const pmt = rate>0 ? loanAmount*rate/(1-Math.pow(1+rate,-5)) : loanAmount/5;
+      let balance = loanAmount;
+      YEARS.forEach(y=>{
+        const intY = balance*rate;
+        const prinY = rate>0 ? (pmt-intY) : pmt;
+        interest[y]=intY; principal[y]=prinY;
+        balance -= prinY;
+      });
+    } else if(schedule==='grace1'){
+      // year1: interest accrues, capitalized, no cash payment
+      let balance = loanAmount;
+      interest[2027] = balance*rate; principal[2027] = 0;
+      balance += interest[2027];
+      // years 2-5: 4 equal payments amortizing the grown balance
+      const pmt = rate>0 ? balance*rate/(1-Math.pow(1+rate,-4)) : balance/4;
+      [2028,2029,2030,2031].forEach(y=>{
+        const intY = balance*rate;
+        const prinY = rate>0 ? (pmt-intY) : pmt;
+        interest[y]=intY; principal[y]=prinY;
+        balance -= prinY;
+      });
+    } else if(schedule==='balloon5'){
+      // years1-4: interest accrues, capitalized, no cash payment
+      let balance = loanAmount;
+      [2027,2028,2029,2030].forEach(y=>{
+        interest[y] = balance*rate; principal[y] = 0;
+        balance += interest[y];
+      });
+      // year5: final year's interest expensed + full balance repaid as principal
+      interest[2031] = balance*rate;
+      principal[2031] = balance;
+    }
+    return {interest, principal};
+  }
+
+  function recalc(){
+    // ---- read inputs ----
+    const countNew = v('inp_countNew');
+    const price = vc('inp_price');
+    const equipParts = vc('inp_equipParts');
+    const garageArea = v('inp_garageArea'), garagePrice = vc('inp_garagePrice');
+    const garageMethod = document.getElementById('inp_garageMethod').value;
+    const countBF = v('inp_countBF'), rateBF = v('inp_rateBF');
+    const countBB = v('inp_countBB'), rateBB = v('inp_rateBB');
+    const countFB = v('inp_countFB'), rateFB = v('inp_rateFB');
+    const fuelConsPct = v('inp_fuelCons')/100;
+    const fx = v('inp_fx');
+    const fuelPriceBase = v('inp_fuelPrice');
+    const fuelGrowth = v('inp_fuelGrowth')/100;
+    const avgDist = v('inp_avgDist');
+    const taxAdj = vc('inp_taxAdj');
+
+    const driverN = v('inp_driverN'), driverCostM = vc('inp_driverCostM_iqd');
+    const supN = v('inp_supN'), supCostM = vc('inp_supCostM_iqd');
+    const mechN = v('inp_mechN'), mechCostM = vc('inp_mechCostM_iqd');
+    const supportN = v('inp_supportN'), supportCostM = vc('inp_supportCostM_iqd');
+    const tiresN = v('inp_tiresN'), tiresCost = vc('inp_tiresCost_iqd');
+    const oilInterval = v('inp_oilInterval'), oilCostPerChange = vc('inp_oilCostPerChange_iqd');
+    const insGps = vc('inp_insGps_iqd');
+    const periodicPct = v('inp_periodicPct')/100;
+    const salvagePct = v('inp_salvagePct')/100;
+
+    const wacc = v('inp_wacc')/100;
+    const taxRatePct = v('inp_tax');
+    const inflation = v('inp_inflation')/100;
+
+    // ---- garage cost & investment ----
+    const garageTotal = garageArea*garagePrice;
+    const totalInvest = countNew*price + equipParts + (garageMethod==='invest' ? garageTotal : 0);
+
+    const totalTrailers = countBF + countBB + countFB;
+    const routeSum = countBF*rateBF + countBB*rateBB + countFB*rateFB;
+    const revenueY1 = routeSum * avgDist * 6;
+    setTxt('calc_routeSum', routeSum.toLocaleString('en-US', {maximumFractionDigits:2}));
+    setTxt('calc_avgDist', avgDist.toLocaleString('en-US'));
+
+    // ---- tax scenario: sync the two dropdowns, sulaymaniyah=exempt, ainalfahd=taxed ----
+    const taxScenario = document.getElementById('inp_taxScenario5yr').value;
+
+    // ---- labor: monthly inputs -> annual; support staff excluded in Ain Al-Fahd (no-merge) scenario ----
+    const driverCost = driverCostM*12, supCost = supCostM*12, mechCost = mechCostM*12, supportCost = supportCostM*12;
+    const support = (taxScenario==='ainalfahd') ? 0 : supportN*supportCost;
+    const laborY1 = driverN*driverCost + supN*supCost + mechN*mechCost + support;
+
+    // ---- maintenance (per trailer, annual) ----
+    const tiresTotal = tiresN*tiresCost;
+    const annualKm = avgDist*12;
+    const oilTimes = oilInterval>0 ? annualKm/oilInterval : 0;
+    const oilTotal = oilTimes*oilCostPerChange;
+    const periodicAmt = price*periodicPct;
+    const maintPerTrailer = tiresTotal + oilTotal + insGps + periodicAmt;
+    const maintY1 = maintPerTrailer * totalTrailers;
+    const salvageValue = (countNew*price)*salvagePct; // trailers only, not equipment/garage
+
+    // ---- office rent savings: only counted when merged into Sulaymaniyah ----
+    const officeRentUsd = vc('inp_officeRent');
+    const officeRentIqd = Math.round(officeRentUsd*fx);
+    const officeRentY1 = (taxScenario==='sulaymaniyah') ? officeRentUsd : 0;
+    document.getElementById('calc_officeRentOp').style.display = officeRentY1>0 ? '' : 'none';
+    document.getElementById('calc_officeRentRow').style.display = officeRentY1>0 ? '' : 'none';
+    if(officeRentY1>0) setTxt('calc_officeRentAdd', fmtMoney(officeRentY1));
+    setTxt('calc_revenueY1', fmtMoney(revenueY1 + officeRentY1));
+
+    // ---- loan amortization (interest expensed annually, principal cash-out per schedule) — used ONLY by the repayment-scenario page, not the standard result tables ----
+    const loanEnabled = document.getElementById('inp_loanEnabled').checked;
+    const loanRate = v('inp_loanRate')/100;
+    const loanSchedule = 'annual';
+    const amort = loanEnabled ? computeLoanAmortization(totalInvest, loanRate, loanSchedule) : null;
+
+    // ---- year-by-year operating P&L (standard tables: NEVER affected by loan) ----
+    const rev={}, fuel={}, labor={}, maint={}, taxadj={}, ebt={}, tax={}, netcf={};
+    YEARS.forEach((y,idx)=>{
+      const i = idx+1;
+      const infl = Math.pow(1+inflation, i-1);
+      rev[y] = (revenueY1 + officeRentY1) * infl;
+      const fuelPriceYear = fuelPriceBase * Math.pow(1+fuelGrowth, i-1);
+      fuel[y] = (fuelConsPct * avgDist * totalTrailers * 12) * fuelPriceYear / fx;
+      labor[y] = laborY1 * infl;
+      maint[y] = maintY1 * infl;
+      taxadj[y] = taxAdj * infl;
+      ebt[y] = rev[y] - fuel[y] - labor[y] - maint[y] - taxadj[y];
+      tax[y] = (taxScenario==='ainalfahd' && ebt[y]>0) ? ebt[y]*(taxRatePct/100) : 0;
+      let cf = ebt[y] - tax[y];
+      if(y === 2027 && garageMethod==='expense') cf -= garageTotal;
+      if(y === 2031) cf += salvageValue;
+      netcf[y] = cf;
+    });
+
+    // ---- discounting ----
+    const cf0 = -totalInvest;
+    const disc={}, cum={};
+    let running = cf0;
+    YEARS.forEach((y,idx)=>{
+      const t = idx+1;
+      disc[y] = netcf[y] / Math.pow(1+wacc, t);
+      running += disc[y];
+      cum[y] = running;
+    });
+    const npv2 = cum[2028];
+    const npv5 = cum[2031];
+
+    const cf2 = [cf0, netcf[2027], netcf[2028]];
+    const cf5 = [cf0, netcf[2027], netcf[2028], netcf[2029], netcf[2030], netcf[2031]];
+    const irr2 = irr(cf2);
+    const irr5 = irr(cf5);
+    const paybackSimple2 = payback(cf2);
+    const paybackSimple5 = payback(cf5);
+    const discCfArr2 = [cf0, disc[2027], disc[2028]];
+    const discCfArr5 = [cf0, disc[2027], disc[2028], disc[2029], disc[2030], disc[2031]];
+    const paybackDisc2 = payback(discCfArr2);
+    const paybackDisc5 = payback(discCfArr5);
+
+    // ================= WRITE TO DOM =================
+    setTxt('out_totalInvest', fmtMoney(totalInvest));
+    const investMillionsTxt = (totalInvest/1000000).toFixed(1).replace(/\.0$/,'') + ' میلیون دلار';
+    const investMillionsTxtY = (totalInvest/1000000).toFixed(1).replace(/\.0$/,'') + ' میلیون دلاری';
+    setTxt('intro_amount_1', investMillionsTxt);
+    setTxt('intro_amount_2', investMillionsTxtY);
+    setTxt('intro_amount_3', investMillionsTxtY);
+
+    // ---- route coverage note ----
+    const routeTotal = countBF+countBB+countFB;
+    const coveragePct = countNew>0 ? Math.min(100, (routeTotal/countNew)*100) : 0;
+    const remainPct = Math.max(0, 100-coveragePct);
+    setTxt('route_coverage_note', `تعداد ${countNew.toLocaleString('en-US')} تریلی خریداری‌شده، به‌صورت تقریبی ${coveragePct.toFixed(0)}٪ از عملیات مسیرهای فوق را پوشش می‌دهد و ${remainPct.toFixed(0)}٪ ظرفیت باقی‌مانده هنوز به مسیر مشخصی تخصیص نیافته است.`);
+
+    // ---- permanent inline detail breakdowns (monthly/annual, USD/LC) ----
+    setTxt('pop_price_usd', fmtMoney(price)); setTxt('pop_price_iqd', fmt(Math.round(price*fx))+' LC');
+    setTxt('pop_equip_usd', fmtMoney(equipParts)); setTxt('pop_equip_iqd', fmt(Math.round(equipParts*fx))+' LC');
+    setTxt('pop_garage_usd', fmtMoney(garageTotal)); setTxt('pop_garage_iqd', fmt(Math.round(garageTotal*fx))+' LC');
+
+    setTxt('det_driver_y_iqd', fmt(Math.round(driverCost*fx))+' LC');
+    setTxt('det_driver_m_usd', fmtMoney(driverCostM));
+    setTxt('det_driver_y_usd', fmtMoney(driverCost));
+    setTxt('det_driver_total', fmtMoney(driverN*driverCost));
+
+    setTxt('det_sup_y_iqd', fmt(Math.round(supCost*fx))+' LC');
+    setTxt('det_sup_m_usd', fmtMoney(supCostM));
+    setTxt('det_sup_y_usd', fmtMoney(supCost));
+    setTxt('det_sup_total', fmtMoney(supN*supCost));
+
+    setTxt('det_mech_y_iqd', fmt(Math.round(mechCost*fx))+' LC');
+    setTxt('det_mech_m_usd', fmtMoney(mechCostM));
+    setTxt('det_mech_y_usd', fmtMoney(mechCost));
+    setTxt('det_mech_total', fmtMoney(mechN*mechCost));
+
+    setTxt('det_support_y_iqd', fmt(Math.round(supportCost*fx))+' LC');
+    setTxt('det_support_m_usd', fmtMoney(supportCostM));
+    setTxt('det_support_y_usd', fmtMoney(supportCost));
+    setTxt('det_support_total', fmtMoney(support));
+
+    setTxt('det_tires_y_iqd', fmt(Math.round(tiresTotal*fx))+' LC');
+    setTxt('det_tires_m_iqd', fmt(Math.round(tiresTotal*fx/12))+' LC');
+    setTxt('det_tires_y_usd', fmtMoney(tiresTotal));
+    setTxt('det_tires_m_usd', fmtMoney(Math.round(tiresTotal/12)));
+
+    setTxt('det_oil_times', oilTimes.toFixed(1));
+    setTxt('det_oil_y_iqd', fmt(Math.round(oilTotal*fx))+' LC');
+    setTxt('det_oil_m_iqd', fmt(Math.round(oilTotal*fx/12))+' LC');
+    setTxt('det_oil_y_usd', fmtMoney(oilTotal));
+    setTxt('det_oil_m_usd', fmtMoney(Math.round(oilTotal/12)));
+
+    setTxt('det_insgps_m_iqd', fmt(Math.round(insGps*fx/12))+' LC');
+    setTxt('det_insgps_y_usd', fmtMoney(insGps));
+    setTxt('det_insgps_m_usd', fmtMoney(Math.round(insGps/12)));
+
+    setTxt('det_periodic_y_iqd', fmt(Math.round(periodicAmt*fx))+' LC');
+    setTxt('det_periodic_m_iqd', fmt(Math.round(periodicAmt*fx/12))+' LC');
+    setTxt('det_periodic_y_usd', fmtMoney(periodicAmt));
+    setTxt('det_periodic_m_usd', fmtMoney(Math.round(periodicAmt/12)));
+
+    setTxt('pop_taxadj_usd', fmtMoney(taxAdj)); setTxt('pop_taxadj_iqd', fmt(Math.round(taxAdj*fx))+' LC');
+    setTxt('out_laborTotal', fmtMoney(laborY1));
+    setTxt('out_laborTotal_iqd', fmt(Math.round(laborY1*fx))+' LC');
+    setTxt('tot_driver_y_iqd', fmt(Math.round(driverN*driverCost*fx))+' LC');
+    setTxt('tot_mech_y_iqd', fmt(Math.round(mechN*mechCost*fx))+' LC');
+    setTxt('tot_support_y_iqd', fmt(Math.round(support*fx))+' LC');
+    setTxt('tot_sup_y_iqd', fmt(Math.round(supN*supCost*fx))+' LC');
+    setTxt('out_maintTotal', fmtMoney(maintY1));
+    setTxt('out_maintTotal_iqd', fmt(Math.round(maintY1*fx))+' LC');
+    setTxt('tot_tires_iqd', fmt(Math.round(tiresTotal*totalTrailers*fx))+' LC');
+    setTxt('tot_oil_iqd', fmt(Math.round(oilTotal*totalTrailers*fx))+' LC');
+    setTxt('tot_insgps_iqd', fmt(Math.round(insGps*totalTrailers*fx))+' LC');
+    setTxt('tot_periodic_iqd', fmt(Math.round(periodicAmt*totalTrailers*fx))+' LC');
+    const maintPct = (countNew*price)>0 ? (maintY1/(countNew*price))*100 : 0;
+    setTxt('out_maintPct', maintPct.toFixed(1)+'%');
+
+    // Page 6 (l5, 2yr table)
+    setTxt('t5_invest_0', fmt(-totalInvest));
+    setTxt('t5_rev_2027', fmt(rev[2027])); setTxt('t5_rev_2028', fmt(rev[2028]));
+    setTxt('t5_fuel_2027', fmt(-fuel[2027])); setTxt('t5_fuel_2028', fmt(-fuel[2028]));
+    setTxt('t5_labor_2027', fmt(-labor[2027])); setTxt('t5_labor_2028', fmt(-labor[2028]));
+    setTxt('t5_maint_2027', fmt(-maint[2027])); setTxt('t5_maint_2028', fmt(-maint[2028]));
+    setTxt('t5_taxadj_2027', fmt(-taxadj[2027])); setTxt('t5_taxadj_2028', fmt(-taxadj[2028]));
+    setTxt('t5_garage_2027', garageMethod==='expense' ? fmt(-garageTotal) : '0');
+    document.querySelectorAll('.t5-garage-row').forEach(el=>{ el.style.display = garageMethod==='expense' ? '' : 'none'; });
+    setTxt('t5_ebt_2027', fmt(ebt[2027])); setTxt('t5_ebt_2028', fmt(ebt[2028]));
+    setTxt('t5_tax_label', taxScenario==='ainalfahd' ? `مالیات (${taxRatePct.toFixed(0)}٪ - شرکت تابعه)` : 'مالیات (معاف - شرکت مادر)');
+    setTxt('t5_tax_2027', tax[2027]>0 ? fmt(-tax[2027]) : '0'); setTxt('t5_tax_2028', tax[2028]>0 ? fmt(-tax[2028]) : '0');
+    setTxt('t5_netcf_0', fmt(cf0));
+    setTxt('t5_netcf_2027', fmt(netcf[2027])); setTxt('t5_netcf_2028', fmt(netcf[2028]));
+    setTxt('t5_disc_0', fmt(-totalInvest));
+    setTxt('t5_disc_2027', fmt(disc[2027])); setTxt('t5_disc_2028', fmt(disc[2028]));
+    setTxt('t5_cum_0', fmt(-totalInvest));
+    const cum2027_2yr = cf0 + disc[2027];
+    setTxt('t5_cum_2027', fmt(cum2027_2yr)); setPosNeg('t5_cum_2027', cum2027_2yr);
+    setTxt('t5_cum_2028', fmt(npv2)); setPosNeg('t5_cum_2028', npv2);
+    setTxt('t5_npv', fmt(npv2)); setPosNeg('t5_npv', npv2);
+    setTxt('t5_irr', irr2!==null ? (irr2*100).toFixed(1)+'%' : 'تعریف نمی‌شود');
+    setTxt('t5_payback', paybackSimple2!==null ? paybackSimple2.toFixed(2)+' سال' : 'بیش از ۲ سال');
+    setTxt('t5_dpayback', paybackDisc2!==null ? paybackDisc2.toFixed(2)+' سال' : 'بیش از ۲ سال');
+
+    // ---- l5 verdict (2yr), handles positive/negative NPV ----
+    const investM = (totalInvest/1000000).toFixed(1).replace('.0','');
+    let verdict2;
+    if(npv2 < 0){
+      verdict2 = `طی دو سال نخست، خالص ارزش فعلی گزینه A همچنان منفی است (منفی ${fmtMoney(Math.abs(npv2))})؛ سرمایه‌گذاری تا این نقطه به‌طور کامل بازیافت نشده است. برای دید کامل‌تر، لازم است بازه بلندمدت (پنج‌ساله) نیز بررسی شود.`;
+    } else {
+      verdict2 = `طی دو سال نخست، اصل سرمایه‌گذاری ${investM} میلیون دلاری به‌طور کامل بازیافت شده و افزون بر آن، حدود ${Math.round(Math.abs(npv2)/1000)} هزار دلار ارزش فعلی خالص ایجاد می‌شود. با این حال، نتیجه دوساله به‌تنهایی کافی نیست؛ با توجه به مخارج احتمالی آتی، لازم است بازه‌های میان‌دوره‌ای و بلندمدت (پنج‌ساله) نیز بررسی شود.`;
+    }
+    setTxt('l5_verdict_text', verdict2);
+
+    // Page 7 (l6, 5yr table)
+    setTxt('t6_invest_0', fmt(-totalInvest));
+    setTxt('t6_netcf_0', fmt(cf0));
+    setTxt('t6_disc_0', fmt(-totalInvest));
+    setTxt('t6_cum_0', fmt(-totalInvest));
+    setTxt('t6_garage_2027', garageMethod==='expense' ? fmt(-garageTotal) : '0');
+    document.querySelectorAll('.t6-garage-row').forEach(el=>{ el.style.display = garageMethod==='expense' ? '' : 'none'; });
+    setTxt('t6_salvage_2031', fmt(salvageValue));
+    setTxt('t6_tax_label', taxScenario==='ainalfahd' ? `مالیات (${taxRatePct.toFixed(0)}٪ - شرکت تابعه)` : 'مالیات (معاف - شرکت مادر)');
+    YEARS.forEach(y=>{
+      setTxt('t6_rev_'+y, fmt(rev[y]));
+      setTxt('t6_fuel_'+y, fmt(-fuel[y]));
+      setTxt('t6_labor_'+y, fmt(-labor[y]));
+      setTxt('t6_maint_'+y, fmt(-maint[y]));
+      setTxt('t6_taxadj_'+y, fmt(-taxadj[y]));
+      setTxt('t6_ebt_'+y, fmt(ebt[y]));
+      setTxt('t6_tax_'+y, tax[y]>0 ? fmt(-tax[y]) : '0');
+      setTxt('t6_netcf_'+y, fmt(netcf[y]));
+      setTxt('t6_disc_'+y, fmt(disc[y]));
+      setTxt('t6_cum_'+y, fmt(cum[y])); setPosNeg('t6_cum_'+y, cum[y]);
+    });
+    setTxt('t6_npv', fmt(npv5)); setPosNeg('t6_npv', npv5);
+    setTxt('t6_irr', irr5!==null ? (irr5*100).toFixed(1)+'%' : 'تعریف نمی‌شود');
+    setTxt('t6_payback', paybackSimple5!==null ? paybackSimple5.toFixed(2)+' سال' : 'بیش از ۵ سال');
+    setTxt('t6_dpayback', paybackDisc5!==null ? paybackDisc5.toFixed(2)+' سال' : 'بیش از ۵ سال');
+
+    // ==================== NEW PAGE: 5yr result assuming full lump-sum loan repayment (table truncated to 2027-2029) ====================
+    document.getElementById('nav_l9').style.display = loanEnabled ? '' : 'none';
+    if(loanEnabled){
+      const YEARS9 = [2027,2028,2029];
+      // find the first year (within the shown horizon) where cumulative (undiscounted) investment cash flow covers the loan's future value
+      let cumInvCF = 0, payoffYear = null, payoffAmt = 0;
+      YEARS9.forEach((y,idx)=>{
+        cumInvCF += netcf[y];
+        const fv = totalInvest * Math.pow(1+loanRate, idx+1);
+        if(payoffYear===null && cumInvCF >= fv){ payoffYear = y; payoffAmt = fv; }
+      });
+
+      const finCF = {}; YEARS9.forEach(y=>finCF[y]=0);
+      if(payoffYear) finCF[payoffYear] = -payoffAmt;
+
+      const totCF = {}; YEARS9.forEach(y=>totCF[y] = netcf[y] + finCF[y]);
+      const t9cf0 = -totalInvest + totalInvest; // investment out, financing in — nets to 0 at year0
+
+      setTxt('t9_invest_0', fmt(-totalInvest));
+      YEARS9.forEach(y=>{
+        setTxt('t9_rev_'+y, fmt(rev[y]));
+        setTxt('t9_fuel_'+y, fmt(-fuel[y]));
+        setTxt('t9_labor_'+y, fmt(-labor[y]));
+        setTxt('t9_maint_'+y, fmt(-maint[y]));
+        setTxt('t9_taxadj_'+y, fmt(-taxadj[y]));
+        setTxt('t9_ebt_'+y, fmt(ebt[y]));
+        setTxt('t9_tax_'+y, tax[y]>0 ? fmt(-tax[y]) : '0');
+      });
+      setTxt('t9_garage_2027', garageMethod==='expense' ? fmt(-garageTotal) : '0');
+      document.querySelectorAll('.t9-garage-row').forEach(el=>{ el.style.display = garageMethod==='expense' ? '' : 'none'; });
+      setTxt('t9_tax_label', taxScenario==='ainalfahd' ? `مالیات (${taxRatePct.toFixed(0)}٪ - شرکت تابعه)` : 'مالیات (معاف - شرکت مادر)');
+
+      setTxt('t9_invcf_0', fmt(-totalInvest));
+      setTxt('t9_fincf_0', fmt(totalInvest)); setPosNeg('t9_fincf_0', totalInvest);
+      setTxt('t9_totalcf_0', fmt(t9cf0));
+      YEARS9.forEach(y=>{
+        setTxt('t9_invcf_'+y, fmt(netcf[y]));
+        setTxt('t9_fincf_'+y, fmt(finCF[y])); if(finCF[y]!==0) setPosNeg('t9_fincf_'+y, finCF[y]);
+        setTxt('t9_totalcf_'+y, fmt(totCF[y]));
+      });
+
+      const disc9={}, cum9={};
+      let running9 = t9cf0;
+      YEARS9.forEach((y,idx)=>{
+        const t = idx+1;
+        disc9[y] = totCF[y]/Math.pow(1+wacc, t);
+        running9 += disc9[y];
+        cum9[y] = running9;
+        setTxt('t9_disc_'+y, fmt(disc9[y]));
+        setTxt('t9_cum_'+y, fmt(cum9[y])); setPosNeg('t9_cum_'+y, cum9[y]);
+      });
+      const npv9 = cum9[2029];
+      setTxt('t9_npv', fmt(npv9)); setPosNeg('t9_npv', npv9);
+
+      if(payoffYear){
+        setTxt('t9_payoff_note', `بازپرداخت کامل اصل و فرع وام (ارزش آتی ${fmtMoney(payoffAmt)}) در سال ${payoffYear} رخ می‌دهد.`);
+        // payback duration: years elapsed until cumulative investment CF first covers the loan's future value, linearly interpolated within the payoff year
+        const payoffIdx = YEARS9.indexOf(payoffYear); // 0-based (2027->0, 2028->1, 2029->2)
+        let cumBefore = 0;
+        for(let k=0;k<payoffIdx;k++) cumBefore += netcf[YEARS9[k]];
+        const neededInYear = payoffAmt - cumBefore;
+        const fractionOfYear = netcf[payoffYear]>0 ? Math.min(1, Math.max(0, neededInYear/netcf[payoffYear])) : 1;
+        const paybackYears = payoffIdx + fractionOfYear;
+        setTxt('t9_payback_year_span', String(payoffYear));
+        setTxt('t9_payback_years', paybackYears.toFixed(1));
+        document.querySelector('#l9 .verdict p:first-of-type').style.display = '';
+        document.getElementById('t9_payback_fallback').style.display = 'none';
+      } else {
+        setTxt('t9_payoff_note', 'با مفروضات فعلی، جریان نقدی انباشته سرمایه‌گذاری ظرف افق نشان‌داده‌شده (تا ۲۰۲۹)، توان پوشش کامل اصل و فرع وام را پیدا نمی‌کند.');
+        document.querySelector('#l9 .verdict p:first-of-type').style.display = 'none';
+        document.getElementById('t9_payback_fallback').style.display = '';
+      }
+    }
+
+    // ---- Option B (rent) — fixed reference cash flows, own NPV row ----
+    const npvB5 = 873802, total5B = 971941;
+    setTxt('t6B_npv', fmt(npvB5));
+
+    // Page: نتیجه‌گیری کلی (l7) Option A summary
+    setTxt('l7_invest', fmtMoney(totalInvest));
+    setTxt('l7_npv', fmtMoney(npv5)); setPosNeg('l7_npv', npv5);
+    setTxt('l7_irr', irr5!==null ? (irr5*100).toFixed(1)+'%' : 'تعریف نمی‌شود');
+    setTxt('l7_payback', paybackSimple5!==null ? paybackSimple5.toFixed(2)+' سال' : 'بازیافت نمی‌شود');
+    setTxt('l7_dpayback', paybackDisc5!==null ? paybackDisc5.toFixed(2)+' سال' : 'بازیافت نمی‌شود');
+    const total5 = YEARS.reduce((s,y)=>s+netcf[y],0);
+    setTxt('l7_total5', fmtMoney(total5)); setPosNeg('l7_total5', total5);
+    setTxt('l7_npvdiff', fmtMoney(npv5 - npvB5)); setPosNeg('l7_npvdiff', npv5-npvB5);
+    setTxt('l7_profdiff', fmtMoney(total5 - total5B)); setPosNeg('l7_profdiff', total5-total5B);
+    setTxt('l7_irrvswacc', (irr5!==null ? (irr5*100).toFixed(1)+'%' : '—') +' vs '+ (wacc*100).toFixed(0)+'%');
+
+    // ---- dynamic verdict (l7, 5yr) ----
+    const npvWin = npv5 > npvB5;
+    let verdict;
+    if(npv5 < 0){
+      verdict = `با مفروضات فعلی، خالص ارزش فعلی گزینه A منفی است (منفی ${fmtMoney(Math.abs(npv5))}) و این طرح از نظر اقتصادی توجیه‌پذیر نیست؛ جریان نقدی حاصل، هزینه سرمایه (نرخ تنزیل ${(wacc*100).toFixed(0)}٪) را پوشش نمی‌دهد.`;
+    } else {
+      const irrTxt = irr5!==null ? `نرخ بازده داخلی آن (${(irr5*100).toFixed(1)}٪) ${irr5>wacc?'بالاتر از نرخ تنزیل ('+(wacc*100).toFixed(0)+'٪) است':'پایین‌تر از نرخ تنزیل است'}` : 'نرخ بازده داخلی برای آن تعریف نمی‌شود';
+      const paybackTxt = paybackSimple5!==null ? `اصل سرمایه‌گذاری ظرف ${paybackSimple5.toFixed(1)} سال بازیافت می‌شود` : 'اصل سرمایه‌گذاری در افق پنج‌ساله بازیافت نمی‌شود';
+      const ratioTxt = total5B>0 && total5>0 ? ` و طی پنج سال، بازدهی معادل حدود ${Math.round(total5/total5B)} برابر سناریوی ادامه وضع موجود ایجاد می‌کند` : '';
+      verdict = `گزینه A ${npvWin?'در شاخص‌های اصلی نسبت به گزینه B برتری دارد':'با این حال از نظر NPV نسبت به گزینه B ضعیف‌تر است'}. ${paybackTxt} و ${irrTxt}${ratioTxt}.`;
+    }
+    setTxt('l7_verdict_text', verdict);
+
+    // ---- l8 qualitative NPV bullet toggle (2 scenarios, same NPV drives both) ----
+    document.querySelectorAll('.l8_npv').forEach(el=>{ el.textContent = fmtMoney(npv5); });
+    document.querySelectorAll('.l8_npv_neg').forEach(el=>{ el.textContent = fmtMoney(Math.abs(npv5)); });
+    ['1','2'].forEach(n=>{
+      const posLi = document.getElementById('l8_npv_pos_li'+n);
+      const negLi = document.getElementById('l8_npv_neg_li'+n);
+      if(posLi && negLi){
+        posLi.style.display = (npv5>=0 && npv5>=npvB5) ? '' : 'none';
+        negLi.style.display = npv5<0 ? '' : 'none';
+      }
+    });
+
+    // ---- loan box display ----
+    document.getElementById('loan_details').classList.toggle('loan-disabled', !loanEnabled);
+    setTxt('loan_status_txt', loanEnabled ? 'فعال — تأمین مالی برای این مبلغ در نظر گرفته شده' : 'غیرفعال — سرمایه‌گذاری از محل منابع داخلی تأمین می‌شود');
+
+    // ---- explanation page (lA2) — interactive live bullets (words, not symbols) ----
+    setTxt('ex_wacc', (wacc*100).toFixed(0)+' درصد');
+    setTxt('ex_tax', taxRatePct.toFixed(0)+' درصد');
+    setTxt('ex_inflation', (inflation*100).toFixed(0)+' درصد');
+    setTxt('ex_fx', 'هر یک دلار معادل '+fx.toLocaleString('en-US')+' LC');
+    setTxt('ex_brand', document.getElementById('inp_brand').value+' — مدل سال '+v('inp_modelYear'));
+    setTxt('ex_countNew', countNew.toLocaleString('en-US')+' دستگاه');
+    setTxt('ex_price', price.toLocaleString('en-US')+' دلار (معادل '+Math.round(price*fx).toLocaleString('en-US')+' LC)');
+    setTxt('ex_equipParts', equipParts.toLocaleString('en-US')+' دلار (معادل '+Math.round(equipParts*fx).toLocaleString('en-US')+' LC)');
+    setTxt('ex_garageTotal', garageTotal.toLocaleString('en-US')+' دلار — '+(garageMethod==='invest' ? 'افزوده به سرمایه‌گذاری سال صفر' : 'کسر یکجا از صرفه‌جویی سال اول'));
+    setTxt('ex_totalInvest', totalInvest.toLocaleString('en-US')+' دلار');
+    setTxt('ex_countBF', countBF.toLocaleString('en-US')+' دستگاه، نرخ '+rateBF+' دلار (معادل '+fmt(Math.round(rateBF*fx))+' LC) هر کیلومتر');
+    setTxt('ex_countBB', countBB.toLocaleString('en-US')+' دستگاه، نرخ '+rateBB+' دلار (معادل '+fmt(Math.round(rateBB*fx))+' LC) هر کیلومتر');
+    setTxt('ex_countFB', countFB.toLocaleString('en-US')+' دستگاه، نرخ '+rateFB+' دلار (معادل '+fmt(Math.round(rateFB*fx))+' LC) هر کیلومتر');
+    // sort route bullets by rate, descending
+    (function(){
+      const list = document.getElementById('route_expl_list');
+      const items = [...list.children];
+      items.sort((a,b)=> v(b.dataset.rateId) - v(a.dataset.rateId));
+      items.forEach(li=> list.appendChild(li));
+    })();
+    setTxt('ex_fuelCons', v('inp_fuelCons')+' لیتر به‌ازای هر ۱۰۰ کیلومتر');
+    setTxt('ex_fuelPrice', fuelPriceBase.toLocaleString('en-US')+' LC هر لیتر، رشد سالانه '+(fuelGrowth*100).toFixed(0)+' درصد');
+    setTxt('ex_avgDist', avgDist.toLocaleString('en-US')+' کیلومتر در ماه (نیمی از مسیر پر و نیمی دیگر خالی است)');
+    const iqd = (usd)=> fmt(Math.round(usd*fx))+' LC';
+    setTxt('ex_driverN', driverN.toLocaleString('en-US'));
+    setTxt('ex_driver', `ماهانه ${iqd(driverCostM)} (معادل ${fmtUsdWord(driverCostM)})، سالانه ${iqd(driverCost)} (معادل ${fmtUsdWord(driverCost)})`);
+    setTxt('ex_supN', supN.toLocaleString('en-US'));
+    setTxt('ex_sup', `ماهانه ${iqd(supCostM)} (معادل ${fmtUsdWord(supCostM)})، سالانه ${iqd(supCost)} (معادل ${fmtUsdWord(supCost)})`);
+    setTxt('ex_mechN', mechN.toLocaleString('en-US'));
+    setTxt('ex_mech', `ماهانه ${iqd(mechCostM)} (معادل ${fmtUsdWord(mechCostM)})، سالانه ${iqd(mechCost)} (معادل ${fmtUsdWord(mechCost)})`);
+    setTxt('ex_supportN', supportN.toLocaleString('en-US'));
+    setTxt('ex_support', `ماهانه ${iqd(supportCostM)} (معادل ${fmtUsdWord(supportCostM)})، سالانه ${iqd(supportCost)} (معادل ${fmtUsdWord(supportCost)})`);
+    setTxt('ex_tiresN', tiresN.toLocaleString('en-US'));
+    setTxt('ex_tires', `${iqd(tiresCost)} (معادل ${fmtUsdWord(tiresCost)})`);
+    setTxt('ex_tiresTotal', `${iqd(tiresTotal)} (معادل ${fmtUsdWord(tiresTotal)}) در سال، هر تریلی`);
+    setTxt('ex_oilInterval', oilInterval.toLocaleString('en-US'));
+    setTxt('ex_oil', `${iqd(oilCostPerChange)} (معادل ${fmtUsdWord(oilCostPerChange)})`);
+    setTxt('ex_oilTimes', oilTimes.toFixed(1));
+    setTxt('ex_insGps', `${iqd(insGps)} (معادل ${fmtUsdWord(insGps)})`);
+    setTxt('ex_periodic', `${(periodicPct*100).toFixed(1)}٪ قیمت تریلی، یعنی ${iqd(periodicAmt)} (معادل ${fmtUsdWord(periodicAmt)}) در سال، هر تریلی`);
+    setTxt('ex_taxAdj', `${fmtUsdWord(taxAdj)} (معادل ${iqd(taxAdj)})`);
+    setTxt('ex_salvagePct', (salvagePct*100).toFixed(0)+'٪');
+    setTxt('ex_salvageValue', fmtUsdWord(salvageValue));
+    setTxt('ex_officeRent', `${fmt(officeRentIqd)} LC (معادل ${fmtUsdWord(officeRentUsd)}) در سال`);
+    setTxt('ex_loan', loanEnabled ? ('فعال — نرخ '+(loanRate*100).toFixed(0)+' درصد، بازپرداخت اقساط مساوی سالانه') : 'غیرفعال');
+
+    // ---- universal pass: any number cell in the 3 result tables showing "(...)" (negative) gets red coloring ----
+    ['l5','l6','l9'].forEach(pageId=>{
+      const page = document.getElementById(pageId);
+      if(!page) return;
+      page.querySelectorAll('.gtable .num').forEach(cell=>{
+        const txt = (cell.textContent||'').trim();
+        const isNeg = txt.startsWith('(') && txt.endsWith(')');
+        cell.classList.toggle('neg', isNeg);
+      });
+    });
+  }
+
+  // ---- live thousands-separator formatting for price fields ----
+  function formatPriceInput(el){
+    const start = el.selectionStart;
+    const lenBefore = el.value.length;
+    let raw = el.value.replace(/[^0-9.]/g, '');
+    const parts = raw.split('.');
+    let intPart = parts[0].replace(/^0+(?=\d)/, '');
+    let decPart = parts.length > 1 ? '.'+parts.slice(1).join('').slice(0,2) : '';
+    const formattedInt = intPart ? parseInt(intPart, 10).toLocaleString('en-US') : '';
+    const newVal = formattedInt + decPart;
+    el.value = newVal;
+    const lenAfter = newVal.length;
+    const newPos = Math.max(0, start + (lenAfter - lenBefore));
+    try{ el.setSelectionRange(newPos, newPos); }catch(e){}
+  }
+  document.querySelectorAll('input[data-fmt="1"]').forEach(el=>{
+    formatPriceInput(el);
+    el.addEventListener('input', ()=>formatPriceInput(el));
+  });
+
+  // ---- currency helper: usd-native fields read directly, iqd-native fields divide by current fx ----
+  const LC_NATIVE_FIELDS = ['inp_driverCostM_iqd','inp_supCostM_iqd','inp_mechCostM_iqd','inp_supportCostM_iqd','inp_tiresCost_iqd','inp_oilCostPerChange_iqd','inp_insGps_iqd','inp_officeRent'];
+  function vc(id){
+    if(LC_NATIVE_FIELDS.includes(id)) return v(id)/(v('inp_fx')||1550);
+    return v(id);
+  }
+
+  document.querySelectorAll('input.editnum, select.editnum').forEach(el=>{
+    el.addEventListener('input', recalc);
+    el.addEventListener('change', recalc);
+  });
+  document.getElementById('inp_loanEnabled').addEventListener('change', recalc);
+
+  // ---- sync the two tax-scenario dropdowns (2yr / 5yr pages) ----
+  const scenario2yr = document.getElementById('inp_taxScenario2yr');
+  const scenario5yr = document.getElementById('inp_taxScenario5yr');
+  scenario2yr.addEventListener('change', ()=>{ scenario5yr.value = scenario2yr.value; recalc(); });
+  scenario5yr.addEventListener('change', ()=>{ scenario2yr.value = scenario5yr.value; recalc(); });
+
+  // ---- clamp route allocation counts so their sum never exceeds purchased trailer count ----
+  ['inp_countBF','inp_countBB','inp_countFB'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', function(){
+      const countNew = v('inp_countNew');
+      const a = v('inp_countBF'), b = v('inp_countBB'), c = v('inp_countFB');
+      const sum = a+b+c;
+      if(sum > countNew){
+        const over = sum - countNew;
+        const cur = parseFloat(this.value)||0;
+        this.value = Math.max(0, cur - over);
+      }
+    });
+  });
+
+
+  /* ================= SAVE / LOAD ================= */
+  const STORAGE_KEY = 'ainAlFahd_fleet_dashboard_v2';
+  function collectInputs(){
+    const data = {};
+    document.querySelectorAll('input.editnum, select.editnum').forEach(el=>{ data[el.id]=el.value; });
+    return data;
+  }
+  function applyInputs(data){
+    Object.keys(data).forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(el.type==='checkbox') el.checked = data[id]; else el.value = data[id];
+    });
+  }
+  document.getElementById('btn_save').addEventListener('click', ()=>{
+    try{
+      // 1) local convenience save (same browser only)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectInputs()));
+
+      // 2) portable save: bake current values into a downloadable copy of this file,
+      //    so the saved state travels with the file when shared with anyone, anywhere.
+      const clone = document.documentElement.cloneNode(true);
+      clone.querySelectorAll('input.editnum, select.editnum').forEach(cloneEl=>{
+        const liveEl = document.getElementById(cloneEl.id);
+        if(!liveEl) return;
+        if(liveEl.tagName === 'SELECT'){
+          [...cloneEl.options].forEach(opt=>{ opt.removeAttribute('selected'); });
+          const idx = liveEl.selectedIndex;
+          if(cloneEl.options[idx]) cloneEl.options[idx].setAttribute('selected','selected');
+        } else {
+          cloneEl.setAttribute('value', liveEl.value);
+        }
+      });
+      const loanCb = clone.querySelector('#inp_loanEnabled');
+      if(loanCb && document.getElementById('inp_loanEnabled').checked) loanCb.setAttribute('checked','checked');
+      else if(loanCb) loanCb.removeAttribute('checked');
+
+      const finalHtml = '<!DOCTYPE html>\n' + clone.outerHTML;
+      const blob = new Blob([finalHtml], {type:'text/html;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const dateStr = new Date().toISOString().slice(0,10);
+      a.download = `داشبورد-ذخیره‌شده-${dateStr}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      const st = document.getElementById('save_status');
+      st.textContent = '✓ فایل ذخیره‌شده دانلود شد';
+      setTimeout(()=>{ st.textContent=''; }, 3000);
+    }catch(e){
+      document.getElementById('save_status').textContent = 'ذخیره ممکن نشد';
+    }
+  });
+  document.getElementById('btn_reset').addEventListener('click', ()=>{
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    location.reload();
+  });
+
+  try{
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(saved){
+      applyInputs(JSON.parse(saved));
+      const st = document.getElementById('save_status');
+      st.textContent = '📂 تنظیمات ذخیره‌شده بارگذاری شد';
+      setTimeout(()=>{ st.textContent=''; }, 3500);
+    }
+  }catch(e){}
+
+  recalc();
+
+  /* ================= EXCEL EXPORT ================= */
+  function extractGtableRows(gtableEl){
+    const cells = [...gtableEl.children];
+    // find number of columns from grid-template-columns
+    const style = gtableEl.getAttribute('style') || '';
+    const m = style.match(/grid-template-columns:\s*([^;]+)/);
+    const colCount = m ? m[1].trim().split(/\s+/).length : 4;
+    const rows = [];
+    for(let i=0; i<cells.length; i+=colCount){
+      const rowCells = cells.slice(i, i+colCount);
+      rows.push(rowCells.map(c=>{
+        let t = (c.textContent||'').trim();
+        // strip parentheses formatting, keep as negative number text for Excel readability
+        if(t.startsWith('(') && t.endsWith(')')) t = '-'+t.slice(1,-1);
+        return t.replace(/,/g,'');
+      }));
+    }
+    return rows;
+  }
+  function exportPageToExcel(pageId, filename){
+    if(typeof XLSX === 'undefined'){ alert('امکان خروجی اکسل در این لحظه در دسترس نیست (کتابخانه بارگذاری نشد).'); return; }
+    const page = document.getElementById(pageId);
+    const tables = page.querySelectorAll('.gtable');
+    const wb = XLSX.utils.book_new();
+    tables.forEach((t, idx)=>{
+      const rows = extractGtableRows(t);
+      const ws = XLSX.utils.aoa_to_sheet(rows);
+      XLSX.utils.book_append_sheet(wb, ws, tables.length>1 ? ('جدول '+(idx+1)) : 'نتایج');
+    });
+    XLSX.writeFile(wb, filename);
+  }
+  const btnExcelL5 = document.getElementById('btn_excel_l5');
+  if(btnExcelL5) btnExcelL5.addEventListener('click', ()=> exportPageToExcel('l5', 'نتیجه-۲-ساله.xlsx'));
+  const btnExcelL6 = document.getElementById('btn_excel_l6');
+  if(btnExcelL6) btnExcelL6.addEventListener('click', ()=> exportPageToExcel('l6', 'نتیجه-۵-ساله.xlsx'));
+  const btnExcelL9 = document.getElementById('btn_excel_l9');
+  if(btnExcelL9) btnExcelL9.addEventListener('click', ()=> exportPageToExcel('l9', 'نتیجه-۵-ساله-با-بازپرداخت.xlsx'));
+
+</script>
+</body>
+</html>
